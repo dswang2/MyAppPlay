@@ -1,0 +1,112 @@
+--------------------------------------------------------------------------------------
+推荐模块
+--------------------------------------------------------------------------------------
+http://112.124.22.238:8081/course_api/cniaoplay/featured?p={"page":"0"}
+public static final String BASE_URL = "http://112.124.22.238:8081/course_api/cniaoplay/";
+
+{
+    "hasMore": false,
+    "datas": [
+        {
+            "addTime": 0,
+            "hasSameDevApp": false,
+            "videoId": 88,
+            "source": "",
+            "versionName": "10.5.4.52",
+            "hdIcon": {
+                "main": "c79/5c5f667dc9da3bb9f4accffcc9d88b25a8b30734"
+            },
+            "ratingScore": 3,
+            "briefShow": "海量免费小说任你看！看到你眼花缭乱",
+            "developerId": 0,
+            "fitness": 0,
+            "id": 1163,
+            "level1CategoryId": 7,
+            "releaseKeyHash": "1921022910180893e7100830ef10211c",
+            "relateAppHasMore": false,
+            "rId": 0,
+            "suitableType": 0,
+            "briefUseIntro": false,
+            "ads": 0,
+            "publisherName": "广州阿里巴巴文学信息技术有限公司",
+            "level2CategoryId": 148,
+            "position": 0,
+            "favorite": false,
+            "isFavorite": false,
+            "appendSize": 0,
+            "level1CategoryName": "图书阅读",
+            "samDevAppHasMore": false,
+            "displayName": "书旗小说",
+            "icon": "AppStore/0c9ce345aa2734b1202ddf32b6545d9407b18ba0b",
+            "screenshot": "AppStore/0f2e94b9eaa556d3daafb220b610bf6e7c0404bb8,AppStore/042e9849e0aa54d360afb620bbd0bb617b5d81e4f,AppStore/01ab540a96a8d84b6c0eb657601a693acf441d687,AppStore/0cf81b425138b439735f7d6260f3abd7d5e4ef8ac,AppStore/0b9ce475a32b3bb11a2dd532b4b4559a08a4006d3",
+            "ratingTotalCount": 0,
+            "adType": 0,
+            "apkSize": 29952783,
+            "packageName": "com.shuqi.controller",
+            "updateTime": 1501742513545,
+            "grantCode": 0,
+            "versionCode": 139,
+            "diffFileSize": 0
+        }
+    ],
+    "status": 1,
+    "message": "success"
+}
+
+
+对于上面的json,如何转换为java bean ？分成两次。
+第一次，只转换其中的一部分
+{
+	"addTime": 0,
+	"hasSameDevApp": false,
+	"videoId": 88,
+	"source": "",
+	"versionName": "10.5.4.52",
+	"hdIcon": {
+		"main": "c79/5c5f667dc9da3bb9f4accffcc9d88b25a8b30734"
+	},
+	"ratingScore": 3,
+	"briefShow": "海量免费小说任你看！看到你眼花缭乱",
+	"developerId": 0,
+	"fitness": 0,
+	"id": 1163,
+	"level1CategoryId": 7,
+	"releaseKeyHash": "1921022910180893e7100830ef10211c",
+	"relateAppHasMore": false,
+	"rId": 0,
+	"suitableType": 0,
+	"briefUseIntro": false,
+	"ads": 0,
+	"publisherName": "广州阿里巴巴文学信息技术有限公司",
+	"level2CategoryId": 148,
+	"position": 0,
+	"favorite": false,
+	"isFavorite": false,
+	"appendSize": 0,
+	"level1CategoryName": "图书阅读",
+	"samDevAppHasMore": false,
+	"displayName": "书旗小说",
+	"icon": "AppStore/0c9ce345aa2734b1202ddf32b6545d9407b18ba0b",
+	"screenshot": "AppStore/0f2e94b9eaa556d3daafb220b610bf6e7c0404bb8,AppStore/042e9849e0aa54d360afb620bbd0bb617b5d81e4f,AppStore/01ab540a96a8d84b6c0eb657601a693acf441d687,AppStore/0cf81b425138b439735f7d6260f3abd7d5e4ef8ac,AppStore/0b9ce475a32b3bb11a2dd532b4b4559a08a4006d3",
+	"ratingTotalCount": 0,
+	"adType": 0,
+	"apkSize": 29952783,
+	"packageName": "com.shuqi.controller",
+	"updateTime": 1501742513545,
+	"grantCode": 0,
+	"versionCode": 139,
+	"diffFileSize": 0
+}
+
+转换为 AppInfo 类
+
+第二部分，转换整体
+{
+    "hasMore": false,
+    "datas": [
+    ],
+    "status": 1,
+    "message": "success"
+}
+转换为javabean： PageBean<T>
+--------------------------------------------------------------------------------------

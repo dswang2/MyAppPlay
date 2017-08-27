@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">MyAppPlay</string>
+    <string name="menu_settings">设置</string>
+    <string name="menu_about_us">关于</string>
+    <string name="menu_notifications">注意</string>
+    <string name="open">侧滑菜单打开</string>
+    <string name="close">侧滑菜单关闭</string>
+    <string name="menu_download">下载</string>
+    <string name="menu_search">下载</string>
+</resources>

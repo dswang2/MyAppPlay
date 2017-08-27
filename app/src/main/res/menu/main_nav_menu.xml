@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/main_nav_menu_appAndGame"
+        android:icon="@drawable/ic_app_and_game"
+        android:title="应用和游戏"/>
+    <group android:id="@+id/main_nav_menu_first">
+        <item
+            android:id="@+id/main_nav_menu_download"
+            android:icon="@drawable/ic_download2"
+            android:title="下载"/>
+        <item
+            android:id="@+id/main_nav_menu_update"
+            android:icon="@drawable/ic_update"
+            android:title="更新"/>
+        <item
+            android:id="@+id/main_nav_menu_message"
+            android:icon="@drawable/ic_message"
+            android:title="消息"/>
+        <item
+            android:id="@+id/main_nav_menu_setting"
+            android:icon="@drawable/ic_setting"
+            android:title="设置"/>
+    </group>
+    <item
+        android:id="@+id/main_nav_menu_help"
+        android:title="帮助和反馈"/>
+    <item
+        android:id="@+id/main_nav_menu_about"
+        android:title="关于"/>
+</menu>
