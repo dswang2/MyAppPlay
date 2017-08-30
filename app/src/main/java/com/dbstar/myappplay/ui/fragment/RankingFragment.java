@@ -1,26 +1,31 @@
 package com.dbstar.myappplay.ui.fragment;
 
-import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-
 import com.dbstar.myappplay.R;
+import com.dbstar.myappplay.di.component.AppComponent;
 
 /**
  * Created by wh on 2017/6/6.
  */
-public class RankingFragment   extends MyBaseFragment {
-    @Nullable
+public class RankingFragment   extends BaseFragment {
+
+
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.frag_ranking, container, false);
-        return view;
+    protected void init() {
+
     }
 
     @Override
     public String getTitle() {
         return "排行榜";
+    }
+
+    @Override
+    protected void setupActivityComponent(AppComponent appComponent) {
+
+    }
+
+    @Override
+    protected int setLayoutId() {
+        return R.layout.frag_ranking;
     }
 }

@@ -13,13 +13,11 @@ import retrofit2.Response;
  * Created by dswang on 2017/8/20.
  */
 
-public class RecommendPresenter implements RecommendContract.Presenter {
-    private RecommendContract.View mView;
-    private RecommendModel mModel;
+public class RecommendPresenter extends BasePresenter<RecommendModel,RecommendContract.View> {
 
-    public RecommendPresenter(RecommendContract.View view, RecommendModel model) {
-        mView = view;
-        mModel = model;
+
+    public RecommendPresenter(RecommendModel model, RecommendContract.View view) {
+        super(model, view);
     }
 
     public void requestDatas(){

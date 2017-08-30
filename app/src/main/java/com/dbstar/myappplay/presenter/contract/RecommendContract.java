@@ -1,7 +1,6 @@
 package com.dbstar.myappplay.presenter.contract;
 
 import com.dbstar.myappplay.bean.AppInfo;
-import com.dbstar.myappplay.presenter.BasePresenter;
 import com.dbstar.myappplay.ui.BaseView;
 
 import java.util.List;
@@ -16,7 +15,7 @@ public interface RecommendContract {
         public void showNoData();
         public void showError(String message);
     }
-    interface Presenter extends BasePresenter {
-        public void requestDatas();
-    }
+//    interface Presenter extends BasePresenter {
+//        public void requestDatas();
+//    }
 }

@@ -4,6 +4,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
+import com.dbstar.myappplay.ui.fragment.BaseFragment;
 import com.dbstar.myappplay.ui.fragment.CategoryFragment;
 import com.dbstar.myappplay.ui.fragment.GamesFragment;
 import com.dbstar.myappplay.ui.fragment.MyBaseFragment;
@@ -18,7 +19,7 @@ import java.util.List;
  */
 public class ViewPagerAdapter extends FragmentStatePagerAdapter {
 
-    List<MyBaseFragment> mFragments = new ArrayList<>();
+    List<BaseFragment> mFragments = new ArrayList<>();
 
     public ViewPagerAdapter(FragmentManager fm) {
         super(fm);

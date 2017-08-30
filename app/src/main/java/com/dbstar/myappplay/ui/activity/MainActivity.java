@@ -1,6 +1,5 @@
 package com.dbstar.myappplay.ui.activity;
 
-import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
@@ -8,19 +7,18 @@ import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 
 import com.dbstar.myappplay.R;
-import com.dbstar.myappplay.ui.adapter.ViewPagerAdapter;
 import com.dbstar.myappplay.common.util.ToastUtils;
+import com.dbstar.myappplay.di.component.AppComponent;
+import com.dbstar.myappplay.ui.adapter.ViewPagerAdapter;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseActivity {
 
     @BindView(R.id.main_nav)
     NavigationView mainNav;
@@ -33,12 +31,9 @@ public class MainActivity extends AppCompatActivity {
     @BindView(R.id.main_view_pager)
     ViewPager mainViewPager;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        ButterKnife.bind(this);
 
+    @Override
+    protected void init() {
         // 初始化侧滑菜单
         initDrawLayout();
 
@@ -47,6 +42,16 @@ public class MainActivity extends AppCompatActivity {
 
         //初始化 TabLayout
         initTabLayout();
+    }
+
+    @Override
+    protected void setupActivityComponent(AppComponent appComponent) {
+        ;
+    }
+
+    @Override
+    int setLayoutID() {
+        return R.layout.activity_main;
     }
 
     private void initTabLayout() {
