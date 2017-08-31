@@ -41,13 +41,14 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
         init();
     }
 
-    protected abstract void init();
+    // 返回Activity的布局文件ID
+    abstract int setLayoutID();
 
     // 集成dagger2
     protected abstract void setupActivityComponent(AppComponent appComponent);
 
-    // 返回Activity的布局文件ID
-    abstract int setLayoutID();
+    //初始化
+    protected abstract void init();
 
     @Override
     protected void onDestroy() {
