@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -7,7 +8,30 @@
     <android.support.v4.view.ViewPager
         android:id="@+id/guide_viewpager"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-    </android.support.v4.view.ViewPager>
+        android:layout_height="match_parent"></android.support.v4.view.ViewPager>
+
+    <Button
+        android:id="@+id/btn_enter"
+        android:layout_width="140dp"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/guide_indicator"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="20dp"
+        android:paddingBottom="3dp"
+        android:paddingTop="3dp"
+        android:text="立即体验"
+        android:textSize="16sp"
+        android:visibility="gone" />
+
+    <com.dbstar.myappplay.ui.widget.CircleIndicator
+        android:id="@+id/guide_indicator"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="30dp"
+        android:gravity="center_horizontal"
+        app:ci_drawable="@color/color_w"
+        app:ci_height="15dp"
+        app:ci_width="15dp"></com.dbstar.myappplay.ui.widget.CircleIndicator>
 
 </RelativeLayout>

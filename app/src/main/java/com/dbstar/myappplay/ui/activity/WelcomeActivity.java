@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.view.animation.AccelerateDecelerateInterpolator;
 
 import com.dbstar.myappplay.R;
+import com.dbstar.myappplay.common.util.ACache;
+import com.dbstar.myappplay.common.util.Constant;
 import com.dbstar.myappplay.di.component.AppComponent;
 import com.eftimoff.androipathview.PathView;
 
@@ -32,7 +34,7 @@ public class WelcomeActivity extends BaseActivity {
     protected void init() {
         mPathView.getPathAnimator()
                 .delay(100)
-                .duration(5000)
+                .duration(2000)
                 .interpolator(new AccelerateDecelerateInterpolator())
                 .listenerEnd(new PathView.AnimatorBuilder.ListenerEnd() {
                     @Override
@@ -44,7 +46,16 @@ public class WelcomeActivity extends BaseActivity {
     }
 
     private void jump() {
-        startActivity(new Intent(this,MainActivity.class));
+        String isShowGuide = ACache.get(this).getAsString(Constant.IS_SHOW_GUIDE);
+
+        // 第一次启动进入引导页面
+        if (null == isShowGuide) {
+            startActivity(new Intent(this, GuideActivity.class));
+
+        } else {
+            startActivity(new Intent(this, MainActivity.class));
+        }
+        this.finish();
     }
 
 }

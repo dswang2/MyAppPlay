@@ -53,17 +53,19 @@ public abstract class BaseFragment<T extends BasePresenter> extends Fragment {
         init();
     }
 
-    // 初始化方法
-    protected abstract void init();
-
     // 设置Fragment的标题
     public abstract String getTitle();
+
+    // 设置布局ID
+    protected abstract int setLayoutId();
+
+    // 初始化方法
+    protected abstract void init();
 
     // 集成dagger2
     protected abstract void setupActivityComponent(AppComponent appComponent);
 
-    // 设置布局ID
-    protected abstract int setLayoutId();
+
 
     @Override
     public void onDestroy() {

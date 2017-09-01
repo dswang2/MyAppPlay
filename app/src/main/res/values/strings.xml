@@ -7,4 +7,8 @@
     <string name="close">侧滑菜单关闭</string>
     <string name="menu_download">下载</string>
     <string name="menu_search">下载</string>
+
+    <string name="guide_1">全新改版</string>
+    <string name="guide_2">视频购物</string>
+    <string name="guide_3">评价晒图</string>
 </resources>
