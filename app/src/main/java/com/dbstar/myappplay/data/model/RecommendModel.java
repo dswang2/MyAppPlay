@@ -1,6 +1,7 @@
 package com.dbstar.myappplay.data.model;
 
 import com.dbstar.myappplay.bean.AppInfo;
+import com.dbstar.myappplay.bean.BaseBean;
 import com.dbstar.myappplay.bean.PageBean;
 import com.dbstar.myappplay.data.api.ApiService;
 
@@ -17,7 +18,7 @@ public class RecommendModel {
         mApiService = apiService;
     }
 
-    public Observable<PageBean<AppInfo>> getApps(){
+    public Observable<BaseBean<PageBean<AppInfo>>> getApps(){
         return mApiService.getApps("{'page':'0'}");
     }
 }

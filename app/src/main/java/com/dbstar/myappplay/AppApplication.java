@@ -8,7 +8,7 @@ import com.dbstar.myappplay.di.module.AppModule;
 import com.dbstar.myappplay.di.module.HttpModule;
 
 /**
- * Created by wh on 2017/8/24.
+ * Created by wh on 2017/8/24.SE哇啊我·
  */
 
 public class AppApplication extends Application {
