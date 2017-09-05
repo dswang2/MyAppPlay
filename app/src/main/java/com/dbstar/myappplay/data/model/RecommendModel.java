@@ -4,7 +4,7 @@ import com.dbstar.myappplay.bean.AppInfo;
 import com.dbstar.myappplay.bean.PageBean;
 import com.dbstar.myappplay.data.api.ApiService;
 
-import retrofit2.Callback;
+import rx.Observable;
 
 /**
  * Created by dswang on 2017/8/20.
@@ -17,7 +17,7 @@ public class RecommendModel {
         mApiService = apiService;
     }
 
-    public void getApps(Callback<PageBean<AppInfo>> callback){
-        mApiService.getApps("{'page':'0'}").enqueue(callback);
+    public Observable<PageBean<AppInfo>> getApps(){
+        return mApiService.getApps("{'page':'0'}");
     }
 }

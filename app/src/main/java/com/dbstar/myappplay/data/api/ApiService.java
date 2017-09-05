@@ -3,9 +3,9 @@ package com.dbstar.myappplay.data.api;
 import com.dbstar.myappplay.bean.AppInfo;
 import com.dbstar.myappplay.bean.PageBean;
 
-import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
+import rx.Observable;
 
 /**
  * Created by dswang on 2017/8/12.
@@ -19,5 +19,10 @@ public interface ApiService {
     // 返回的数据见文档“interface.txt”
     // PageBean<AppInfo> 是接口的返回值，
     @GET("featured")
-    public Call<PageBean<AppInfo>> getApps(@Query("p") String jsonParam);
+    public Observable<PageBean<AppInfo>> getApps(@Query("p") String jsonParam);
+
+    //注意，这里是feature2
+//    @GET("featured2")
+//    public Observable<BaseBean<PageBean<AppInfo>>> getApps(@Query("p") String jsonParam);
+
 }
