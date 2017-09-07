@@ -2,6 +2,7 @@ package com.dbstar.myappplay.common.rx.subscriber;
 
 import android.content.Context;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.dbstar.myappplay.common.exception.BaseException;
 import com.dbstar.myappplay.common.rx.RxErrorHandler;
@@ -33,7 +34,7 @@ public abstract class ErrorHandlerSubscriber<T> extends DefualtSubscriber<T> {
             Log.d("ErrorHandlerSubscriber",e.getMessage());
         }
         else {
-            mRxErrorHandler.showErrorMessage(baseException);
+            Toast.makeText(mContext,baseException.getDisplayMessage(),Toast.LENGTH_LONG).show();
         }
 
     }

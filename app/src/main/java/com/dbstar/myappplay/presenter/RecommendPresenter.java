@@ -3,7 +3,7 @@ package com.dbstar.myappplay.presenter;
 import com.dbstar.myappplay.bean.AppInfo;
 import com.dbstar.myappplay.bean.PageBean;
 import com.dbstar.myappplay.common.rx.RxHttpReponseCompat;
-import com.dbstar.myappplay.common.rx.subscriber.ErrorHandlerSubscriber;
+import com.dbstar.myappplay.common.rx.subscriber.ProgressErrorHandledSubscriber;
 import com.dbstar.myappplay.data.model.RecommendModel;
 import com.dbstar.myappplay.presenter.contract.RecommendContract;
 
@@ -21,26 +21,34 @@ public class RecommendPresenter extends BasePresenter<RecommendModel, RecommendC
     public void requestDatas() {
         mModel.getApps()
             .compose(RxHttpReponseCompat.<PageBean<AppInfo>>compatResult())
-            .subscribe(new ErrorHandlerSubscriber<PageBean<AppInfo>>(mContext) {
-
-                @Override
-                public void onStart() {
-                    super.onStart();
-                super.onStart();
-                mView.showLoading();
-
-                }
-
-                @Override
-                public void onCompleted() {
-                    mView.dismissLoading();
-                }
-
+            .subscribe(new ProgressErrorHandledSubscriber<PageBean<AppInfo>>(mContext) {
                 @Override
                 public void onNext(PageBean<AppInfo> appInfos) {
                     mView.showResults(appInfos.getDatas());
                 }
             });
+
+//        new ErrorHandlerSubscriber<PageBean<AppInfo>>(mContext) {
+//
+//            @Override
+//            public void onStart() {
+//                super.onStart();
+//                super.onStart();
+//                mView.showLoading();
+//
+//            }
+//
+//            @Override
+//            public void onCompleted() {
+//                mView.dismissLoading();
+//            }
+//
+//            @Override
+//            public void onNext(PageBean<AppInfo> appInfos) {
+//                mView.showResults(appInfos.getDatas());
+//            }
+//        }
+
 
 //        new Subscriber<PageBean<AppInfo>>() {
 //            @Override
