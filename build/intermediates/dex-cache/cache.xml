@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        is-multidex="false"
+        jar="C:\Users\dswang\.android\build-cache\162fea9948091b8990c1bb99b8d8ceda2769a432\output\jars\libs\androidsvg-1.2.1.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.3"
+        sha1="d0cb3453e18fffeb053e9b7f052af3dcec9f75b4">
+        <dex dex="D:\mywokspace\MyAppPlay\app\build\intermediates\pre-dexed\debug\androidsvg-1.2.1_147614efadc688742620773cef6c8015878e9904.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\dswang\.android\build-cache\162fea9948091b8990c1bb99b8d8ceda2769a432\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.3"
+        sha1="88c68c6a96cb202c8974833c319dc4a340f29b7e">
+        <dex dex="D:\mywokspace\MyAppPlay\app\build\intermediates\pre-dexed\debug\classes_53339e5217882720de8a9c23f32c65e596b21747.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\dswang\.gradle\caches\modules-2\files-2.1\io.reactivex\rxjava\1.1.6\2586312cd2b8a511e4c6236736f5a039fc0f2273\rxjava-1.1.6.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.3"
+        sha1="2586312cd2b8a511e4c6236736f5a039fc0f2273">
+        <dex dex="D:\mywokspace\MyAppPlay\app\build\intermediates\pre-dexed\debug\rxjava-1.1.6_115da274f693e3ea3ae3bab5e5df71a255821921.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\dswang\.android\build-cache\186a642fcabc1f339ccb6e7d5ac3eef7fd2353a5\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.3"
+        sha1="5a2386ad9bfff580b206a7fe305cdccd00798159">
+        <dex dex="D:\mywokspace\MyAppPlay\app\build\intermediates\pre-dexed\debug\classes_134b47e40635138f9d4980e4c7925f64e2023647.jar" />
+    </item>
+
+</items>
