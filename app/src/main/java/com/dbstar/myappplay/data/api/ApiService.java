@@ -23,7 +23,7 @@ public interface ApiService {
 //    public Observable<PageBean<AppInfo>> getApps(@Query("p") String jsonParam);
 
     //注意，这里是feature2
-    @GET("featured2")
+    @GET("featured")
     public Observable<BaseBean<PageBean<AppInfo>>> getApps(@Query("p") String jsonParam);
 
 }

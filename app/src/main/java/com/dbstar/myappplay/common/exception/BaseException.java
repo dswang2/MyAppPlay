@@ -1,5 +1,9 @@
 package com.dbstar.myappplay.common.exception;
 
+import android.content.Context;
+
+import com.dbstar.myappplay.R;
+
 /**
  * 菜鸟窝http://www.cniao5.com 一个高端的互联网技能学习平台
  *
@@ -101,5 +105,79 @@ public class BaseException extends Exception {
 
     public void setDisplayMessage(String displayMessage) {
         this.displayMessage = displayMessage;
+    }
+
+    /**
+     * 根据最新的错误码，加载资源文件中的，错误提示信息
+     * 加载资源文件中的信息，用到context
+     * @param context
+     */
+    public void refreshDisplayMessage(Context context){
+        // 根据 this.code ,得到message
+        String errorMsg = null ;
+        switch (this.getCode()){
+            case BaseException.HTTP_ERROR:
+
+                errorMsg =  context.getResources().getString(R.string.error_http);
+
+                break;
+
+            case BaseException.SOCKET_TIMEOUT_ERROR:
+
+                errorMsg =  context.getResources().getString(R.string.error_socket_timeout);
+
+                break;
+            case BaseException.SOCKET_ERROR:
+
+                errorMsg =  context.getResources().getString(R.string.error_socket_unreachable);
+
+                break;
+
+
+            case BaseException.ERROR_HTTP_400:
+
+                errorMsg =  context.getResources().getString(R.string.error_http_400);
+
+                break;
+
+
+            case BaseException.ERROR_HTTP_404:
+
+                errorMsg =  context.getResources().getString(R.string.error_http_404);
+
+                break;
+
+            case BaseException.ERROR_HTTP_500:
+
+                errorMsg =  context.getResources().getString(R.string.error_http_500);
+
+                break;
+
+
+
+            case ApiException.ERROR_API_SYSTEM:
+                errorMsg = context.getResources().getString(R.string.error_system);
+                break;
+
+            case ApiException.ERROR_API_ACCOUNT_FREEZE:
+                errorMsg = context.getResources().getString(R.string.error_account_freeze);
+                break;
+
+
+            case ApiException.ERROR_API_NO_PERMISSION:
+                errorMsg = context.getResources().getString(R.string.error_api_no_perission);
+                break;
+
+            case ApiException.ERROR_API_LOGIN:
+                errorMsg = context.getResources().getString(R.string.error_login);
+                break;
+
+
+
+            default:
+                errorMsg=context.getResources().getString(R.string.error_unkown);
+                break;
+        }
+        this.setDisplayMessage(errorMsg);
     }
 }

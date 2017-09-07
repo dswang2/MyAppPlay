@@ -6,14 +6,16 @@ package com.dbstar.myappplay.bean;
 
 public class BaseBean<T> {
 
-    private static final int SUCCESS = 1;
-    /**{
+
+    /**
+     {
      "data": { },
      "status": 1,
      "message": "success"
      }
      */
 
+    private static final int SUCCESS = 1;
 
     private int status;
     private String message;
