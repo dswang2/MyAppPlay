@@ -78,6 +78,7 @@ public class BaseException extends Exception {
     private String displayMessage;
 
     public BaseException() {
+
     }
 
     public BaseException(int code, String displayMessage) {

@@ -21,7 +21,7 @@ public class RecommendPresenter extends BasePresenter<RecommendModel, RecommendC
     public void requestDatas() {
         mModel.getApps()
             .compose(RxHttpReponseCompat.<PageBean<AppInfo>>compatResult())
-            .subscribe(new ProgressErrorHandledSubscriber<PageBean<AppInfo>>(mContext) {
+            .subscribe(new ProgressErrorHandledSubscriber<PageBean<AppInfo>>(mContext,mView) {
                 @Override
                 public void onNext(PageBean<AppInfo> appInfos) {
                     mView.showResults(appInfos.getDatas());
