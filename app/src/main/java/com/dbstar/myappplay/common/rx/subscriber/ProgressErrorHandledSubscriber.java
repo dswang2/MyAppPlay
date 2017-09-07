@@ -1,7 +1,8 @@
 package com.dbstar.myappplay.common.rx.subscriber;
 
-import android.app.ProgressDialog;
 import android.content.Context;
+
+import com.dbstar.myappplay.ui.BaseView;
 
 /**
  * Created by wh on 2017/9/7.
@@ -9,13 +10,11 @@ import android.content.Context;
 
 public abstract class ProgressErrorHandledSubscriber<T> extends ErrorHandlerSubscriber<T> {
 
-    protected Context mContext;
-    private ProgressDialog mProgressDialog;
+    private BaseView mBaseView;
 
-    public ProgressErrorHandledSubscriber(Context context) {
+    public ProgressErrorHandledSubscriber(Context context, BaseView baseView) {
         super(context);
-        mContext = context;
-        initProgressDialog();
+        mBaseView = baseView;
     }
 
     public boolean isShowProgressDialog() {
@@ -26,35 +25,24 @@ public abstract class ProgressErrorHandledSubscriber<T> extends ErrorHandlerSubs
     public void onStart() {
         super.onStart();
         if(isShowProgressDialog()){
-            mProgressDialog.show();
+            mBaseView.showLoading();
         }
     }
 
     @Override
     public void onCompleted() {
-        if (mProgressDialog.isShowing()) {
-            dismissProgressDialog();
+        if (isShowProgressDialog()) {
+            mBaseView.dismissLoading();
         }
     }
 
     @Override
     public void onError(Throwable e) {
         super.onError(e);
-        if (mProgressDialog.isShowing()) {
-            dismissProgressDialog();
+        if (isShowProgressDialog()) {
+            mBaseView.dismissLoading();
         }
     }
 
-    public void initProgressDialog() {
-        // 创建dialog，需要 activity
-        mProgressDialog = new ProgressDialog(mContext);
-    }
 
-    public void showProgressDialog() {
-        mProgressDialog.show();
-    }
-
-    public void dismissProgressDialog() {
-        mProgressDialog.dismiss();
-    }
 }
