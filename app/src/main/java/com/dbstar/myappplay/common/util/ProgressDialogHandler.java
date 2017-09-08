@@ -72,7 +72,7 @@ public class ProgressDialogHandler extends Handler{
     }
 
     public void dismissProgressDialog() {
-        if(mSweetAlertDialog!=null && !mSweetAlertDialog.isShowing()){
+        if(mSweetAlertDialog!=null && mSweetAlertDialog.isShowing()){
             mSweetAlertDialog.dismiss();
             mSweetAlertDialog = null;
         }

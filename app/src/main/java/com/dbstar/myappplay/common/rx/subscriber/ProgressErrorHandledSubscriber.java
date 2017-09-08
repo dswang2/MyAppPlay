@@ -4,11 +4,13 @@ import android.content.Context;
 
 import com.dbstar.myappplay.common.util.ProgressDialogHandler;
 
+
 /**
  * Created by wh on 2017/9/7.
  */
 
 public abstract class ProgressErrorHandledSubscriber<T> extends ErrorHandlerSubscriber<T> implements ProgressDialogHandler.OnProgressCancelListener {
+
 
     private ProgressDialogHandler mProgressDialogHandler;
     protected Context mContext;
@@ -16,7 +18,7 @@ public abstract class ProgressErrorHandledSubscriber<T> extends ErrorHandlerSubs
     public ProgressErrorHandledSubscriber(Context context) {
         super(context);
         mContext = context;
-        mProgressDialogHandler = new ProgressDialogHandler(mContext, true,this);
+        mProgressDialogHandler = new ProgressDialogHandler(mContext, true, this);
     }
 
     public boolean isShowProgressDialog() {
