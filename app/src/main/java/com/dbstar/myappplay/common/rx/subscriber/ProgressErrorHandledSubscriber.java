@@ -1,21 +1,22 @@
 package com.dbstar.myappplay.common.rx.subscriber;
 
-import android.app.ProgressDialog;
 import android.content.Context;
+
+import com.dbstar.myappplay.common.util.ProgressDialogHandler;
 
 /**
  * Created by wh on 2017/9/7.
  */
 
-public abstract class ProgressErrorHandledSubscriber<T> extends ErrorHandlerSubscriber<T> {
+public abstract class ProgressErrorHandledSubscriber<T> extends ErrorHandlerSubscriber<T> implements ProgressDialogHandler.OnProgressCancelListener {
 
+    private ProgressDialogHandler mProgressDialogHandler;
     protected Context mContext;
-    private ProgressDialog mProgressDialog;
 
     public ProgressErrorHandledSubscriber(Context context) {
         super(context);
         mContext = context;
-        initProgressDialog();
+        mProgressDialogHandler = new ProgressDialogHandler(mContext, true,this);
     }
 
     public boolean isShowProgressDialog() {
@@ -24,37 +25,28 @@ public abstract class ProgressErrorHandledSubscriber<T> extends ErrorHandlerSubs
 
     @Override
     public void onStart() {
-        super.onStart();
-        if(isShowProgressDialog()){
-            mProgressDialog.show();
+        if (isShowProgressDialog()) {
+            mProgressDialogHandler.showProgressDialog();
         }
     }
 
     @Override
     public void onCompleted() {
-        if (mProgressDialog.isShowing()) {
-            dismissProgressDialog();
+        if (isShowProgressDialog()) {
+            mProgressDialogHandler.dismissProgressDialog();
         }
     }
 
     @Override
     public void onError(Throwable e) {
         super.onError(e);
-        if (mProgressDialog.isShowing()) {
-            dismissProgressDialog();
+        if (isShowProgressDialog()) {
+            mProgressDialogHandler.dismissProgressDialog();
         }
     }
 
-    public void initProgressDialog() {
-        // 创建dialog，需要 activity
-        mProgressDialog = new ProgressDialog(mContext);
-    }
-
-    public void showProgressDialog() {
-        mProgressDialog.show();
-    }
-
-    public void dismissProgressDialog() {
-        mProgressDialog.dismiss();
+    @Override
+    public void onCancelProgress() {
+        unsubscribe();
     }
 }
