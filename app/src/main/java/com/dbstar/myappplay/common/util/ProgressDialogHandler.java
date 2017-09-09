@@ -7,6 +7,7 @@ import android.os.Message;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
+
 /**
  * Created by wh on 2017/9/8.
  */
@@ -15,7 +16,6 @@ public class ProgressDialogHandler extends Handler{
 
     public static final int SHOW_PROGRESS_DIALOG = 1;
     public static final int DISMISS_PROGRESS_DIALOG = 0;
-
     private Context mContext;
     private SweetAlertDialog mSweetAlertDialog;
     private boolean cancelable;
