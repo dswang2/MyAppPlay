@@ -3,7 +3,7 @@ package com.dbstar.myappplay.presenter;
 import com.dbstar.myappplay.bean.AppInfo;
 import com.dbstar.myappplay.bean.PageBean;
 import com.dbstar.myappplay.common.rx.RxHttpReponseCompat;
-import com.dbstar.myappplay.common.rx.subscriber.ProgressErrorHandledSubscriber;
+import com.dbstar.myappplay.common.rx.subscriber.ProgressHandledSubscriber;
 import com.dbstar.myappplay.data.model.RecommendModel;
 import com.dbstar.myappplay.presenter.contract.RecommendContract;
 
@@ -21,12 +21,19 @@ public class RecommendPresenter extends BasePresenter<RecommendModel, RecommendC
     public void requestDatas() {
         mModel.getApps()
             .compose(RxHttpReponseCompat.<PageBean<AppInfo>>compatResult())
-            .subscribe(new ProgressErrorHandledSubscriber<PageBean<AppInfo>>(mContext) {
+            .subscribe(new ProgressHandledSubscriber<PageBean<AppInfo>>(mContext,mView) {
                 @Override
                 public void onNext(PageBean<AppInfo> appInfos) {
                     mView.showResults(appInfos.getDatas());
                 }
             });
+
+//        new ProgressErrorHandledSubscriber<PageBean<AppInfo>>(mContext) {
+//            @Override
+//            public void onNext(PageBean<AppInfo> appInfos) {
+//                mView.showResults(appInfos.getDatas());
+//            }
+//        }
 
 //        new ErrorHandlerSubscriber<PageBean<AppInfo>>(mContext) {
 //
@@ -34,18 +41,18 @@ public class RecommendPresenter extends BasePresenter<RecommendModel, RecommendC
 //            public void onStart() {
 //                super.onStart();
 //                super.onStart();
-//                mView.showLoading();
+//                mBaseView.showLoading();
 //
 //            }
 //
 //            @Override
 //            public void onCompleted() {
-//                mView.dismissLoading();
+//                mBaseView.dismissLoading();
 //            }
 //
 //            @Override
 //            public void onNext(PageBean<AppInfo> appInfos) {
-//                mView.showResults(appInfos.getDatas());
+//                mBaseView.showResults(appInfos.getDatas());
 //            }
 //        }
 
@@ -54,23 +61,23 @@ public class RecommendPresenter extends BasePresenter<RecommendModel, RecommendC
 //            @Override
 //            public void onStart() {
 //                super.onStart();
-//                mView.showLoading();
+//                mBaseView.showLoading();
 //            }
 //
 //            @Override
 //            public void onCompleted() {
-//                mView.dismissLoading();
+//                mBaseView.dismissLoading();
 //            }
 //
 //            @Override
 //            public void onError(Throwable e) {
-//                mView.dismissLoading();
-//                mView.showError(e.getMessage());
+//                mBaseView.dismissLoading();
+//                mBaseView.showError(e.getMessage());
 //            }
 //
 //            @Override
 //            public void onNext(PageBean<AppInfo> appInfos) {
-//                mView.showResults(appInfos.getDatas());
+//                mBaseView.showResults(appInfos.getDatas());
 //            }
 //
 //        }

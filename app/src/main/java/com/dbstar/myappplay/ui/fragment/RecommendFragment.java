@@ -25,7 +25,7 @@ import butterknife.BindView;
 /**
  * Created by wh on 2017/6/6.
  */
-public class RecommendFragment extends BaseFragment<RecommendPresenter> implements RecommendContract.View {
+public class RecommendFragment extends ProgressFragment<RecommendPresenter> implements RecommendContract.View {
     @BindView(R.id.recom_rv_list)
     RecyclerView mRecomRvList;
 
@@ -49,6 +49,11 @@ public class RecommendFragment extends BaseFragment<RecommendPresenter> implemen
         mRecomRvList.setAdapter(mRecommendAppAdapter);
     }
 
+
+    @Override
+    protected void onEmptyClick() {
+        mPresenter.requestDatas();
+    }
 
     @Override
     public String getTitle() {
@@ -79,18 +84,19 @@ public class RecommendFragment extends BaseFragment<RecommendPresenter> implemen
         ToastUtils.showSafeToast(getActivity(), "暂时无数据");
     }
 
-    @Override
-    public void showError(String message) {
-        ToastUtils.showSafeToast(getActivity(), "数据获取出错");
-    }
+//    @Override
+//    public void showError(String message) {
+//        ToastUtils.showSafeToast(getActivity(), "数据获取出错");
+//    }
 
-    @Override
-    public void showLoading() {
-        mProgressDialog.show();
-    }
+//    @Override
+//    public void showLoading() {
+//        mProgressDialog.show();
+//    }
+//
+//    @Override
+//    public void dismissLoading() {
+//        mProgressDialog.dismiss();
+//    }
 
-    @Override
-    public void dismissLoading() {
-        mProgressDialog.dismiss();
-    }
 }

@@ -6,11 +6,16 @@ import com.dbstar.myappplay.di.component.AppComponent;
 /**
  * Created by wh on 2017/6/6.
  */
-public class CategoryFragment  extends BaseFragment{
+public class CategoryFragment  extends ProgressFragment{
 
 
     @Override
     protected void init() {
+
+    }
+
+    @Override
+    protected void onEmptyClick() {
 
     }
 
@@ -26,6 +31,6 @@ public class CategoryFragment  extends BaseFragment{
 
     @Override
     protected int setLayoutId() {
-        return R.layout.frag_games;
+        return R.layout.frag_category;
     }
 }

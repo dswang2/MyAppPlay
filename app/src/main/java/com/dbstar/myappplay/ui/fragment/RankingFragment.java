@@ -6,11 +6,16 @@ import com.dbstar.myappplay.di.component.AppComponent;
 /**
  * Created by wh on 2017/6/6.
  */
-public class RankingFragment   extends BaseFragment {
+public class RankingFragment   extends ProgressFragment {
 
 
     @Override
     protected void init() {
+
+    }
+
+    @Override
+    protected void onEmptyClick() {
 
     }
 

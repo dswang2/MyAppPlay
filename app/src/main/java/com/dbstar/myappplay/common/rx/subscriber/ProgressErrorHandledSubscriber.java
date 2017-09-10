@@ -15,6 +15,7 @@ public abstract class ProgressErrorHandledSubscriber<T> extends ErrorHandlerSubs
     private ProgressDialogHandler mProgressDialogHandler;
     protected Context mContext;
 
+
     public ProgressErrorHandledSubscriber(Context context) {
         super(context);
         mContext = context;
@@ -24,6 +25,7 @@ public abstract class ProgressErrorHandledSubscriber<T> extends ErrorHandlerSubs
     public boolean isShowProgressDialog() {
         return true;
     }
+
 
     @Override
     public void onStart() {

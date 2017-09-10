@@ -12,7 +12,7 @@
     <string name="guide_2">视频购物</string>
     <string name="guide_3">评价晒图</string>
 
-    <string name="error_unkown">其他错误</string>
+    <string name="error_unkown">数据错误</string>
     <string name="error_http">网络连接错误</string>
     <string name="error_system">服务器出错</string>
     <string name="error_account_freeze">账户被冻结，请联系管理员</string>
@@ -24,4 +24,5 @@
     <string name="error_socket_timeout">网络超时</string>
     <string name="error_socket_unreachable">网络不可用</string>
     <string name="loading">加载中...</string>
+    <string name="empty_data">暂无数据</string>
 </resources>

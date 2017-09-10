@@ -6,4 +6,5 @@ package com.dbstar.myappplay.ui;
 public interface BaseView {
     public void showLoading();
     public void dismissLoading();
+    public void showError(String msg);
 }
