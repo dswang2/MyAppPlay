@@ -1,7 +1,12 @@
 package com.dbstar.myappplay.ui.activity;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.widget.Button;
@@ -9,6 +14,7 @@ import android.widget.Button;
 import com.dbstar.myappplay.R;
 import com.dbstar.myappplay.common.util.ACache;
 import com.dbstar.myappplay.common.util.Constant;
+import com.dbstar.myappplay.common.util.ToastUtils;
 import com.dbstar.myappplay.di.component.AppComponent;
 import com.dbstar.myappplay.ui.adapter.GuideFragmentAdapter;
 import com.dbstar.myappplay.ui.fragment.BaseFragment;
@@ -28,6 +34,7 @@ import butterknife.OnClick;
 
 public class GuideActivity extends BaseActivity implements ViewPager.OnPageChangeListener {
 
+    private static final int REQUEST_READ_SMS_PERMISSION = 0;
     @BindView(R.id.guide_viewpager)
     ViewPager mViewPager;
 
@@ -97,7 +104,42 @@ public class GuideActivity extends BaseActivity implements ViewPager.OnPageChang
     @OnClick(R.id.btn_enter)
     public void onClick() {
         ACache.get(this).put(Constant.IS_SHOW_GUIDE,"0");
-        startActivity(new Intent(this, MainActivity.class));
+
+        //测试动态权限管理的代码
+        startMainActivityWithPermission();
+
+        //startMainActivity();
+    }
+
+    public void startMainActivity(){
+        startActivity(new Intent(GuideActivity.this, MainActivity.class));
         this.finish();
+    }
+
+    private void startMainActivityWithPermission() {
+        //测试动态权限的代码
+        //假设需要动态权限 读取短信
+        // 检测是否拥有权限
+        if(ContextCompat.checkSelfPermission(GuideActivity.this, Manifest.permission.READ_SMS)== PackageManager.PERMISSION_GRANTED){
+            startMainActivity();
+        }
+        // 没有权限，申请权限
+        // private static final int REQUEST_READ_PHONE_STATE_PERMISSION = 0;
+        else {
+            ActivityCompat.requestPermissions(GuideActivity.this,new String[]{Manifest.permission.READ_SMS},REQUEST_READ_SMS_PERMISSION);
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        if(requestCode == REQUEST_READ_SMS_PERMISSION){
+            if(grantResults[0]==PackageManager.PERMISSION_GRANTED){
+                startMainActivity();
+            }
+            else {
+                ToastUtils.showSafeToast(GuideActivity.this,"未获得权限");
+            }
+        }
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
 }

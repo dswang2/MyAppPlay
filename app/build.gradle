@@ -66,5 +66,6 @@ dependencies {
     //sweetalert
     compile 'cn.pedant.sweetalert:library:1.3'
 
+    //rxpermissions
     compile 'com.tbruyelle.rxpermissions:rxpermissions:0.9.1@aar'
 }
