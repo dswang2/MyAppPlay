@@ -48,6 +48,7 @@ dependencies {
     compile 'com.squareup.retrofit2:retrofit:2.1.0'
     compile 'com.squareup.retrofit2:adapter-rxjava:2.1.0'
     compile 'com.squareup.retrofit2:converter-gson:2.1.0'
+
     // okHttp
     compile 'com.squareup.okhttp3:okhttp:3.4.1'
     compile 'com.squareup.okhttp3:logging-interceptor:3.4.1'
@@ -68,4 +69,9 @@ dependencies {
 
     //rxpermissions
     compile 'com.tbruyelle.rxpermissions:rxpermissions:0.9.1@aar'
+
+    //glied
+    compile 'com.github.bumptech.glide:glide:3.7.0'
+    compile 'com.github.bumptech.glide:okhttp3-integration:1.4.0@aar'
+    compile 'jp.wasabeef:glide-transformations:2.0.1'
 }

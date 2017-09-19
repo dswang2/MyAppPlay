@@ -1,6 +1,7 @@
 package com.dbstar.myappplay.di.module;
 
-import com.dbstar.myappplay.AppApplication;
+import android.app.Application;
+
 import com.google.gson.Gson;
 
 import javax.inject.Singleton;
@@ -15,10 +16,10 @@ import dagger.Provides;
 @Module
 public class AppModule {
 
-    private AppApplication mAppApplication;
+    private Application mApplication;
 
-    public AppModule(AppApplication appApplication){
-        mAppApplication = appApplication;
+    public AppModule(Application appApplication){
+        mApplication = appApplication;
     }
 
     @Singleton
@@ -29,8 +30,8 @@ public class AppModule {
 
     @Singleton
     @Provides
-    public AppApplication provideAppApplication(){
-        return mAppApplication;
+    public Application provideApplication(){
+        return mApplication;
     }
 
 }

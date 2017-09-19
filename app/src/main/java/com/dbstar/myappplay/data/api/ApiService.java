@@ -2,6 +2,7 @@ package com.dbstar.myappplay.data.api;
 
 import com.dbstar.myappplay.bean.AppInfo;
 import com.dbstar.myappplay.bean.BaseBean;
+import com.dbstar.myappplay.bean.IndexBean;
 import com.dbstar.myappplay.bean.PageBean;
 
 import retrofit2.http.GET;
@@ -25,5 +26,8 @@ public interface ApiService {
     //注意，这里是feature2
     @GET("featured2")
     public Observable<BaseBean<PageBean<AppInfo>>> getApps(@Query("p") String jsonParam);
+
+    @GET("index")
+    public Observable<BaseBean<IndexBean>> getIndex();
 
 }

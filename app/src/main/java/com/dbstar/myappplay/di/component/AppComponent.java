@@ -1,5 +1,7 @@
 package com.dbstar.myappplay.di.component;
 
+import android.app.Application;
+
 import com.dbstar.myappplay.data.api.ApiService;
 import com.dbstar.myappplay.di.module.AppModule;
 import com.dbstar.myappplay.di.module.HttpModule;
@@ -16,4 +18,6 @@ import dagger.Component;
 @Component(modules = {AppModule.class, HttpModule.class})
 public interface AppComponent {
     public ApiService provideApiService();
+    public Application provideApplication();
+
 }
