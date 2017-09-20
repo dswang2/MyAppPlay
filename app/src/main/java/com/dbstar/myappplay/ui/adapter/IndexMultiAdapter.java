@@ -26,10 +26,10 @@ import butterknife.ButterKnife;
 
 public class IndexMultiAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements View.OnClickListener {
 
-    private static final int TYPE_BANNER = 592;
+    private static final int TYPE_BANNER = 591;
     private static final int TYPE_ICON = 592;
-    private static final int TYPE_APPS = 592;
-    private static final int TYPE_GAMES = 592;
+    private static final int TYPE_APPS = 593;
+    private static final int TYPE_GAMES = 594;
 
 
 
@@ -55,18 +55,17 @@ public class IndexMultiAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        RecyclerView.ViewHolder viewHolder = null;
         if (viewType == TYPE_BANNER) {
             // 返回ViewHolder对象，需要传入 view 对象
             // 1、利用item的布局文件,创建View对象
             View view = layoutInflater.inflate(R.layout.template_banner, parent, false);
             // 2、创建ViewHolder对象
-            viewHolder = new BannerViewHolder(view);
+            return  new BannerViewHolder(view);
         } else if (viewType == TYPE_ICON) {
             View view = layoutInflater.inflate(R.layout.template_nav_icon, parent, false);
-            viewHolder = new NavIconViewHolder(view);
+            return new NavIconViewHolder(view);
         }
-        return viewHolder;
+        return null;
     }
 
     @Override
@@ -88,7 +87,6 @@ public class IndexMultiAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         }
         else if(position == 1){
             NavIconViewHolder bannerViewHolder = (NavIconViewHolder) holder;
-
             bannerViewHolder.layoutHotApp.setOnClickListener(this);
             bannerViewHolder.layoutHotGame.setOnClickListener(this);
             bannerViewHolder.layoutHotSubject.setOnClickListener(this);
@@ -105,7 +103,7 @@ public class IndexMultiAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
     }
 
-    public class BannerViewHolder extends RecyclerView.ViewHolder {
+    class BannerViewHolder extends RecyclerView.ViewHolder {
 
         @BindView(R.id.banner)
         BannerLayout banner;
@@ -122,7 +120,7 @@ public class IndexMultiAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         }
     }
 
-    public class NavIconViewHolder extends RecyclerView.ViewHolder {
+    class NavIconViewHolder extends RecyclerView.ViewHolder {
 
         @BindView(R.id.layout_hot_app)
         LinearLayout layoutHotApp;

@@ -7,16 +7,15 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 import com.dbstar.myappplay.R;
-import com.dbstar.myappplay.bean.AppInfo;
+import com.dbstar.myappplay.bean.IndexBean;
 import com.dbstar.myappplay.common.util.ToastUtils;
 import com.dbstar.myappplay.di.component.AppComponent;
 import com.dbstar.myappplay.di.component.DaggerRecommendComponent;
 import com.dbstar.myappplay.di.module.RecommendModule;
 import com.dbstar.myappplay.presenter.RecommendPresenter;
 import com.dbstar.myappplay.presenter.contract.RecommendContract;
+import com.dbstar.myappplay.ui.adapter.IndexMultiAdapter;
 import com.dbstar.myappplay.ui.adapter.RecommendAppAdapter;
-
-import java.util.List;
 
 import javax.inject.Inject;
 
@@ -30,6 +29,7 @@ public class RecommendFragment extends ProgressFragment<RecommendPresenter> impl
     RecyclerView mRecomRvList;
 
     private RecommendAppAdapter mRecommendAppAdapter;
+    private IndexMultiAdapter mIndexMultiAdapter;
 
     @Inject
     ProgressDialog mProgressDialog;
@@ -41,12 +41,18 @@ public class RecommendFragment extends ProgressFragment<RecommendPresenter> impl
         mPresenter.requestDatas();
     }
 
-    private void initRecyclerView(List<AppInfo> appInfos) {
+    private void initRecyclerView(IndexBean indexBean) {
         mRecomRvList.setLayoutManager(new LinearLayoutManager(getActivity()));
         mRecomRvList.addItemDecoration(new DividerItemDecoration(getActivity(), DividerItemDecoration.HORIZONTAL));
         mRecomRvList.setItemAnimator(new DefaultItemAnimator());
-        mRecommendAppAdapter = new RecommendAppAdapter(getActivity(), appInfos);
-        mRecomRvList.setAdapter(mRecommendAppAdapter);
+
+        mIndexMultiAdapter = new IndexMultiAdapter(indexBean,getActivity());
+        mRecomRvList.setAdapter(mIndexMultiAdapter);
+
+//        mRecommendAppAdapter = new RecommendAppAdapter(getActivity(), appInfos);
+//        mRecomRvList.setAdapter(mRecommendAppAdapter);
+
+
     }
 
 
@@ -75,8 +81,8 @@ public class RecommendFragment extends ProgressFragment<RecommendPresenter> impl
 
 
     @Override
-    public void showResults(List<AppInfo> appInfos) {
-        initRecyclerView(appInfos);
+    public void showResults(IndexBean indexBean) {
+        initRecyclerView(indexBean);
     }
 
     @Override
