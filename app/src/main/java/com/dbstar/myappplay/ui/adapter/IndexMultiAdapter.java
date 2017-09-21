@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.dbstar.myappplay.R;
 import com.dbstar.myappplay.bean.BannersBean;
@@ -49,6 +50,10 @@ public class IndexMultiAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             return TYPE_BANNER;
         } else if (position == 1) {
             return TYPE_ICON;
+        } else if (position == 2) {
+            return TYPE_APPS;
+        } else if (position == 3) {
+            return TYPE_GAMES;
         }
         return 0;
     }
@@ -60,21 +65,27 @@ public class IndexMultiAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             // 1、利用item的布局文件,创建View对象
             View view = layoutInflater.inflate(R.layout.template_banner, parent, false);
             // 2、创建ViewHolder对象
-            return  new BannerViewHolder(view);
+            return new BannerViewHolder(view);
         } else if (viewType == TYPE_ICON) {
             View view = layoutInflater.inflate(R.layout.template_nav_icon, parent, false);
             return new NavIconViewHolder(view);
+        } else if (viewType == TYPE_APPS) {
+            View view = layoutInflater.inflate(R.layout.template_recyleview_with_title, parent, false);
+            return new AppViewHolder(view, TYPE_APPS);
+        } else if (viewType == TYPE_GAMES) {
+            View view = layoutInflater.inflate(R.layout.template_recyleview_with_title, parent, false);
+            return new AppViewHolder(view, TYPE_GAMES);
         }
         return null;
     }
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        if (position == 0){
+        if (position == 0) {
             BannerViewHolder bannerViewHolder = (BannerViewHolder) holder;
             List<BannersBean> banners = mIndexData.getBanners();
             List<String> urls = new ArrayList<>(banners.size());
-            for (BannersBean banner : banners){
+            for (BannersBean banner : banners) {
                 urls.add(banner.getThumbnail());
             }
             bannerViewHolder.banner.setViewUrls(urls);
@@ -84,8 +95,7 @@ public class IndexMultiAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
                 }
             });
-        }
-        else if(position == 1){
+        } else if (position == 1) {
             NavIconViewHolder bannerViewHolder = (NavIconViewHolder) holder;
             bannerViewHolder.layoutHotApp.setOnClickListener(this);
             bannerViewHolder.layoutHotGame.setOnClickListener(this);
@@ -114,7 +124,7 @@ public class IndexMultiAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             banner.setImageLoader(new BannerLayout.ImageLoader() {
                 @Override
                 public void displayImage(Context context, String path, ImageView imageView) {
-                    ImageLoader.load(path,imageView);
+                    ImageLoader.load(path, imageView);
                 }
             });
         }
@@ -128,9 +138,31 @@ public class IndexMultiAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         LinearLayout layoutHotGame;
         @BindView(R.id.layout_hot_subject)
         LinearLayout layoutHotSubject;
+
         public NavIconViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
+        }
+    }
+
+    class AppViewHolder extends RecyclerView.ViewHolder {
+
+        @BindView(R.id.text)
+        TextView text;
+        @BindView(R.id.recycler_view)
+        RecyclerView recyclerView;
+
+        int type;
+
+        public AppViewHolder(View itemView, int type) {
+            super(itemView);
+            ButterKnife.bind(this, itemView);
+            this.type = type;
+            initRecycleView();
+        }
+
+        private void initRecycleView() {
+
         }
     }
 }
