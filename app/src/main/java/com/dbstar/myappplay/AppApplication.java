@@ -25,7 +25,7 @@ public class AppApplication extends Application {
                 .httpModule(new HttpModule())
                 .build();
     }
-    
+
     public AppComponent getAppComponent(){
         return  mAppComponent;
     }
