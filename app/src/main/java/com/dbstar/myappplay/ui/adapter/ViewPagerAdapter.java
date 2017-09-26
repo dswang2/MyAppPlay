@@ -7,8 +7,8 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 import com.dbstar.myappplay.ui.fragment.CategoryFragment;
 import com.dbstar.myappplay.ui.fragment.GamesFragment;
 import com.dbstar.myappplay.ui.fragment.ProgressFragment;
-import com.dbstar.myappplay.ui.fragment.TopListFragment;
 import com.dbstar.myappplay.ui.fragment.RecommendFragment;
+import com.dbstar.myappplay.ui.fragment.TopListFragment;
 
 import java.util.ArrayList;
 import java.util.List;

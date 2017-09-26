@@ -1,22 +1,25 @@
 package com.dbstar.myappplay.ui.fragment;
 
-import com.dbstar.myappplay.R;
 import com.dbstar.myappplay.di.component.AppComponent;
+import com.dbstar.myappplay.di.component.DaggerAppInfoComponent;
+import com.dbstar.myappplay.di.module.AppInfoModule;
+import com.dbstar.myappplay.presenter.AppInfoPresenter;
+import com.dbstar.myappplay.ui.adapter.AppInfoAdapter;
 
 /**
  * Created by wh on 2017/6/6.
  */
-public class GamesFragment   extends ProgressFragment {
+public class GamesFragment   extends BaseAppInfoFragment {
 
 
     @Override
-    protected void init() {
-
+    protected int type() {
+        return AppInfoPresenter.GAME;
     }
 
     @Override
-    protected void onEmptyClick() {
-
+    protected AppInfoAdapter initAppInfoAdapter() {
+        return AppInfoAdapter.builder().showPosition(true).showCategoryName(true).showBrief(true).build();
     }
 
     @Override
@@ -26,11 +29,10 @@ public class GamesFragment   extends ProgressFragment {
 
     @Override
     protected void setupActivityComponent(AppComponent appComponent) {
-
+        DaggerAppInfoComponent.builder()
+                .appInfoModule(new AppInfoModule(this))
+                .appComponent(appComponent)
+                .build().injectGamesFragment(this);
     }
 
-    @Override
-    protected int setLayoutId() {
-        return R.layout.frag_games;
-    }
 }

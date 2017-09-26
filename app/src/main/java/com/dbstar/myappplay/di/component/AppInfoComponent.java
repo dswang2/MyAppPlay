@@ -2,6 +2,7 @@ package com.dbstar.myappplay.di.component;
 
 import com.dbstar.myappplay.di.module.AppInfoModule;
 import com.dbstar.myappplay.di.qualifier.RecommendFramentScope;
+import com.dbstar.myappplay.ui.fragment.GamesFragment;
 import com.dbstar.myappplay.ui.fragment.TopListFragment;
 
 import dagger.Component;
@@ -13,5 +14,6 @@ import dagger.Component;
 @Component(modules = AppInfoModule.class,dependencies = AppComponent.class)
 public interface AppInfoComponent {
 
-    void  inject(TopListFragment topListFragment);
+    void  injectTopListFragment(TopListFragment topListFragment);
+    void  injectGamesFragment(GamesFragment gamesFragment);
 }

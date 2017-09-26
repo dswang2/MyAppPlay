@@ -56,6 +56,10 @@ public class MainActivity extends BaseActivity {
 
     private void initTabLayout() {
         PagerAdapter mainPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
+
+        // 设置所有Fragment都进入缓存，这样的话，应用对内存要求高一些，但应用也更快一些
+        mainViewPager.setOffscreenPageLimit(mainPagerAdapter.getCount());
+
         mainViewPager.setAdapter(mainPagerAdapter);
         mainTabLayout.setupWithViewPager(mainViewPager);
     }

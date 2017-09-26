@@ -15,20 +15,25 @@ import rx.Observable;
 public class AppInfoModel {
     private ApiService mApiService;
 
-    public AppInfoModel(ApiService apiService){
+    public AppInfoModel(ApiService apiService) {
         mApiService = apiService;
     }
 
-    public Observable<BaseBean<PageBean<AppInfo>>> getApps(){
+    public Observable<BaseBean<PageBean<AppInfo>>> getApps() {
         return mApiService.getApps("{'page':'0'}");
     }
 
-    public Observable<BaseBean<IndexBean>> getIndex(){
+    public Observable<BaseBean<IndexBean>> getIndex() {
         return mApiService.getIndex();
     }
 
-    public Observable<BaseBean<PageBean<AppInfo>>> topList(int page){
+    public Observable<BaseBean<PageBean<AppInfo>>> topList(int page) {
         return mApiService.topList(page);
     }
+
+    public Observable<BaseBean<PageBean<AppInfo>>> games(int page) {
+        return mApiService.games(page);
+    }
+
 
 }
