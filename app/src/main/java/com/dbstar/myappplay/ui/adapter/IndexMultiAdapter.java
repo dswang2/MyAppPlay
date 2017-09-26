@@ -1,6 +1,8 @@
 package com.dbstar.myappplay.ui.adapter;
 
 import android.content.Context;
+import android.support.v7.widget.DividerItemDecoration;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -31,7 +33,6 @@ public class IndexMultiAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     private static final int TYPE_ICON = 592;
     private static final int TYPE_APPS = 593;
     private static final int TYPE_GAMES = 594;
-
 
 
     private Context mContext;
@@ -70,10 +71,10 @@ public class IndexMultiAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             View view = layoutInflater.inflate(R.layout.template_nav_icon, parent, false);
             return new NavIconViewHolder(view);
         } else if (viewType == TYPE_APPS) {
-            View view = layoutInflater.inflate(R.layout.template_recyleview_with_title, parent, false);
+            View view = layoutInflater.inflate(R.layout.template_recyleview_with_title, null, false);
             return new AppViewHolder(view, TYPE_APPS);
         } else if (viewType == TYPE_GAMES) {
-            View view = layoutInflater.inflate(R.layout.template_recyleview_with_title, parent, false);
+            View view = layoutInflater.inflate(R.layout.template_recyleview_with_title, null, false);
             return new AppViewHolder(view, TYPE_GAMES);
         }
         return null;
@@ -100,12 +101,58 @@ public class IndexMultiAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             bannerViewHolder.layoutHotApp.setOnClickListener(this);
             bannerViewHolder.layoutHotGame.setOnClickListener(this);
             bannerViewHolder.layoutHotSubject.setOnClickListener(this);
+        } else if (position == 2) {
+            AppViewHolder appViewHolder = (AppViewHolder) holder;
+            AppInfoAdapter appInfoAdapter = AppInfoAdapter.builder().showPosition(true).showCategoryName(true).showBrief(true).build();
+
+            appViewHolder.text.setText("热门应用");
+            appInfoAdapter.addData(mIndexData.getRecommendApps());
+
+            appViewHolder.recyclerView.setAdapter(appInfoAdapter);
+        } else if (position == 3) {
+            AppViewHolder appViewHolder = (AppViewHolder) holder;
+            AppInfoAdapter appInfoAdapter = AppInfoAdapter.builder().showPosition(true).showCategoryName(true).showBrief(true).build();
+
+            appViewHolder.text.setText("热门游戏");
+            appInfoAdapter.addData(mIndexData.getRecommendGames());
+
+            appViewHolder.recyclerView.setAdapter(appInfoAdapter);
+        } else {
+//            AppViewHolder appViewHolder = (AppViewHolder) holder;
+//            AppInfoAdapter appInfoAdapter = AppInfoAdapter.builder().showPosition(true).showCategoryName(true).showBrief(true).build();
+//            if(appViewHolder.type == TYPE_APPS){
+//                appViewHolder.text.setText("热门应用");
+//                appInfoAdapter.addData(mIndexData.getRecommendApps());
+//            }
+//            else if(appViewHolder.type == TYPE_GAMES){
+//                appViewHolder.text.setText("热门游戏");
+//                appInfoAdapter.addData(mIndexData.getRecommendGames());
+//            }
+//            appViewHolder.recyclerView.setAdapter(appInfoAdapter);
+//            appViewHolder.recyclerView.addOnItemTouchListener(new RecyclerView.OnItemTouchListener() {
+//                @Override
+//                public boolean onInterceptTouchEvent(RecyclerView rv, MotionEvent e) {
+//                    return false;
+//                }
+//
+//                @Override
+//                public void onTouchEvent(RecyclerView rv, MotionEvent e) {
+//
+//                }
+//
+//                @Override
+//                public void onRequestDisallowInterceptTouchEvent(boolean disallowIntercept) {
+//
+//                }
+//            });
+
+
         }
     }
 
     @Override
     public int getItemCount() {
-        return 2;
+        return 4;
     }
 
     @Override
@@ -162,7 +209,13 @@ public class IndexMultiAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         }
 
         private void initRecycleView() {
-
+            recyclerView.setLayoutManager(new LinearLayoutManager(mContext) {
+                @Override
+                public boolean canScrollVertically() {
+                    return false;
+                }
+            });
+            recyclerView.addItemDecoration(new DividerItemDecoration(mContext, DividerItemDecoration.VERTICAL));
         }
     }
 }

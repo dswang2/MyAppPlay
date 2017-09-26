@@ -13,9 +13,8 @@ import com.dbstar.myappplay.di.component.AppComponent;
 import com.dbstar.myappplay.di.component.DaggerRecommendComponent;
 import com.dbstar.myappplay.di.module.RecommendModule;
 import com.dbstar.myappplay.presenter.RecommendPresenter;
-import com.dbstar.myappplay.presenter.contract.RecommendContract;
+import com.dbstar.myappplay.presenter.contract.AppInfoContract;
 import com.dbstar.myappplay.ui.adapter.IndexMultiAdapter;
-import com.dbstar.myappplay.ui.adapter.RecommendAppAdapter;
 
 import javax.inject.Inject;
 
@@ -24,11 +23,10 @@ import butterknife.BindView;
 /**
  * Created by wh on 2017/6/6.
  */
-public class RecommendFragment extends ProgressFragment<RecommendPresenter> implements RecommendContract.View {
+public class RecommendFragment extends ProgressFragment<RecommendPresenter> implements AppInfoContract.View {
     @BindView(R.id.recom_rv_list)
     RecyclerView mRecomRvList;
 
-    private RecommendAppAdapter mRecommendAppAdapter;
     private IndexMultiAdapter mIndexMultiAdapter;
 
     @Inject

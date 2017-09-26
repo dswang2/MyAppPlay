@@ -20,8 +20,8 @@ public interface ApiService {
     // http://112.124.22.238:8081/course_api/cniaoplay/featured?p={"page":"0"}
     // 返回的数据见文档“interface.txt”
     // PageBean<AppInfo> 是接口的返回值，
-//    @GET("featured")
-//    public Observable<PageBean<AppInfo>> getApps(@Query("p") String jsonParam);
+    // @GET("featured")
+    // public Observable<PageBean<AppInfo>> getApps(@Query("p") String jsonParam);
 
     //注意，这里是feature2
     @GET("featured2")
@@ -29,5 +29,8 @@ public interface ApiService {
 
     @GET("index")
     public Observable<BaseBean<IndexBean>> getIndex();
+
+    @GET("toplist")
+    public Observable<BaseBean<PageBean<AppInfo>>> topList(@Query("page") int page);
 
 }

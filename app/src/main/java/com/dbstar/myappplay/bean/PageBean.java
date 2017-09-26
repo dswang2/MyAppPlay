@@ -1,5 +1,7 @@
 package com.dbstar.myappplay.bean;
 
+import com.google.gson.Gson;
+
 import java.util.List;
 
 /**
@@ -48,5 +50,10 @@ public class PageBean<T> {
 
     public void setDatas(List<T> datas) {
         this.datas = datas;
+    }
+
+    @Override
+    public String toString() {
+        return new Gson().toJson(this);
     }
 }

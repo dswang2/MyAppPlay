@@ -3,22 +3,21 @@ package com.dbstar.myappplay.presenter;
 import com.dbstar.myappplay.bean.IndexBean;
 import com.dbstar.myappplay.common.rx.RxHttpReponseCompat;
 import com.dbstar.myappplay.common.rx.subscriber.ProgressHandledSubscriber;
-import com.dbstar.myappplay.data.model.RecommendModel;
-import com.dbstar.myappplay.presenter.contract.RecommendContract;
+import com.dbstar.myappplay.data.model.AppInfoModel;
+import com.dbstar.myappplay.presenter.contract.AppInfoContract;
 
 /**
  * Created by dswang on 2017/8/20.
  */
 
-public class RecommendPresenter extends BasePresenter<RecommendModel, RecommendContract.View> {
+public class RecommendPresenter extends BasePresenter<AppInfoModel, AppInfoContract.View> {
 
 
-    public RecommendPresenter(RecommendModel model, RecommendContract.View view) {
+    public RecommendPresenter(AppInfoModel model, AppInfoContract.View view) {
         super(model, view);
     }
 
     public void requestDatas() {
-
 
         // 获取首页数据，主要是为了检测公共参数的添加是否成功
         mModel.getIndex()

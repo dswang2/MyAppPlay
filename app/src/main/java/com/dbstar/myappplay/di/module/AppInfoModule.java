@@ -4,7 +4,7 @@ import android.app.ProgressDialog;
 
 import com.dbstar.myappplay.data.api.ApiService;
 import com.dbstar.myappplay.data.model.AppInfoModel;
-import com.dbstar.myappplay.presenter.RecommendPresenter;
+import com.dbstar.myappplay.presenter.AppInfoPresenter;
 import com.dbstar.myappplay.presenter.contract.AppInfoContract;
 import com.dbstar.myappplay.ui.fragment.RecommendFragment;
 
@@ -16,21 +16,21 @@ import dagger.Provides;
  */
 
 @Module
-public class RecommendModule {
+public class AppInfoModule {
 
-    private AppInfoContract.View mView;
-    public RecommendModule(AppInfoContract.View mView) {
+    private AppInfoContract.AppInfoView mView;
+    public AppInfoModule(AppInfoContract.AppInfoView mView) {
         this.mView = mView;
     }
 
     @Provides
-    public AppInfoContract.View provideView(){
+    public AppInfoContract.AppInfoView provideView(){
         return mView;
     }
 
     @Provides
-    public RecommendPresenter provideRecommendPresenter(AppInfoContract.View view, AppInfoModel model){
-        return new RecommendPresenter(model,view);
+    public AppInfoPresenter provideAppInfoPresenter(AppInfoContract.AppInfoView view, AppInfoModel model){
+        return new AppInfoPresenter(model,view);
     }
 
     @Provides
@@ -39,7 +39,7 @@ public class RecommendModule {
     }
 
     @Provides
-    public ProgressDialog provideProgressDialog(AppInfoContract.View view){
+    public ProgressDialog provideProgressDialog(AppInfoContract.AppInfoView view){
         return new ProgressDialog(((RecommendFragment)view).getActivity());
     }
 }

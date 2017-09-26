@@ -7,7 +7,7 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 import com.dbstar.myappplay.ui.fragment.CategoryFragment;
 import com.dbstar.myappplay.ui.fragment.GamesFragment;
 import com.dbstar.myappplay.ui.fragment.ProgressFragment;
-import com.dbstar.myappplay.ui.fragment.RankingFragment;
+import com.dbstar.myappplay.ui.fragment.TopListFragment;
 import com.dbstar.myappplay.ui.fragment.RecommendFragment;
 
 import java.util.ArrayList;
@@ -27,7 +27,7 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter {
 
     private void initFragments() {
         mFragments.add(new RecommendFragment());
-        mFragments.add(new RankingFragment());
+        mFragments.add(new TopListFragment());
         mFragments.add(new GamesFragment());
         mFragments.add(new CategoryFragment());
     }

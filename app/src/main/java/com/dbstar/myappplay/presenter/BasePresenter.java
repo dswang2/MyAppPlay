@@ -21,7 +21,7 @@ public abstract class BasePresenter<M,V extends BaseView> {
         initContext();
     }
 
-    protected abstract void requestDatas();
+    //protected abstract void requestDatas();
 
     private void initContext(){
         if(mView instanceof Fragment){
