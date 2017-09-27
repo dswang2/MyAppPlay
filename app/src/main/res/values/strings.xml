@@ -25,6 +25,11 @@
     <string name="error_socket_unreachable">网络不可用</string>
     <string name="loading">加载中...</string>
     <string name="empty_data">暂无数据</string>
+    <string name="mobi">手机号</string>
+    <string name="password">密码</string>
+    <string name="login">登录</string>
+    <string name="default_loading">loading</string>
+
 
     <string name="hot_game">热门游戏</string>
     <string name="hot_top">热门主题</string>

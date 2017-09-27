@@ -1,5 +1,6 @@
 package com.dbstar.myappplay.ui.activity;
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
@@ -30,6 +31,7 @@ public class MainActivity extends BaseActivity {
     TabLayout mainTabLayout;
     @BindView(R.id.main_view_pager)
     ViewPager mainViewPager;
+    private View headerView;
 
 
     @Override
@@ -42,6 +44,18 @@ public class MainActivity extends BaseActivity {
 
         //初始化 TabLayout
         initTabLayout();
+
+        initUser();
+    }
+
+    private void initUser() {
+        headerView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this,LoginActivity.class));
+                mainDrawer.closeDrawers();
+            }
+        });
     }
 
     @Override
@@ -92,14 +106,7 @@ public class MainActivity extends BaseActivity {
 
     private void initDrawLayout() {
         // 侧滑菜单头部点击监听
-        View headerView = mainNav.getHeaderView(0);
-        headerView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ToastUtils.showSafeToast(MainActivity.this, "点击了侧滑菜单头部");
-                mainDrawer.closeDrawers();
-            }
-        });
+        headerView = mainNav.getHeaderView(0);
         // 侧滑菜单菜单点击监听
         mainNav.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
