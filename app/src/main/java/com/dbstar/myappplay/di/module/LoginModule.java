@@ -1,5 +1,6 @@
 package com.dbstar.myappplay.di.module;
 
+import com.dbstar.myappplay.data.api.ApiService;
 import com.dbstar.myappplay.data.model.LoginModel;
 import com.dbstar.myappplay.presenter.LoginPresenter;
 import com.dbstar.myappplay.presenter.contract.LoginContract;
@@ -27,7 +28,7 @@ public class LoginModule {
     }
 
     @Provides
-    public LoginContract.ILoginModel provideLoginModel(){
-        return new LoginModel();
+    public LoginContract.ILoginModel provideLoginModel(ApiService apiService){
+        return new LoginModel(apiService);
     }
 }

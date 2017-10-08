@@ -80,4 +80,9 @@ dependencies {
 
     // RxBinding
     compile 'com.jakewharton.rxbinding:rxbinding:1.0.1'
+
+    // Rxbus
+    compile ('com.hwangjr.rxbus:rxbus:1.0.3') {
+        exclude group: 'com.hwangjr.utils', module: 'timber'
+    }
 }

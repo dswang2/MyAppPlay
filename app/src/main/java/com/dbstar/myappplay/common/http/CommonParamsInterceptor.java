@@ -5,6 +5,7 @@ import android.content.Context;
 import com.dbstar.myappplay.common.util.Constant;
 import com.dbstar.myappplay.common.util.DensityUtil;
 import com.dbstar.myappplay.common.util.DeviceUtils;
+import com.dbstar.myappplay.common.util.LogUtils;
 import com.google.gson.Gson;
 
 import java.io.IOException;
@@ -99,6 +100,8 @@ public class CommonParamsInterceptor implements Interceptor {
 
             url = url + "?" + Constant.PARAM + "=" + newJsonParameters;
 
+            LogUtils.e("dswang_CommonParamsInterceptor", "CommonParamsInterceptor.intercept.url = " + url);
+            
             request = request.newBuilder().url(url).build();
 
         } else if ("POST".equals(method)) {
@@ -136,7 +139,7 @@ public class CommonParamsInterceptor implements Interceptor {
         else {
         }
 
-
+        
         return chain.proceed(request);
     }
 }

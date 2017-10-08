@@ -10,6 +10,8 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 
 import com.dbstar.myappplay.R;
+import com.dbstar.myappplay.bean.LoginBean;
+import com.dbstar.myappplay.common.util.LogUtils;
 import com.dbstar.myappplay.di.component.AppComponent;
 import com.dbstar.myappplay.di.component.DaggerLoginComponent;
 import com.dbstar.myappplay.di.module.LoginModule;
@@ -63,6 +65,9 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
     @Override
     protected void init() {
         initView();
+
+
+
     }
 
     private void initView() {
@@ -93,8 +98,14 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
             }
         });
 
-
-
+        RxView.clicks(btnLogin).subscribe(new Action1<Void>() {
+            @Override
+            public void call(Void aVoid) {
+                LogUtils.e("dswang_LoginActivity", "LoginActivity.call. = ");
+                mPresenter.login("18721830936","wdscf2008");
+            }
+        });
+        
     }
 
     private boolean isPasswordValid(String password) {
@@ -126,5 +137,21 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
         super.onCreate(savedInstanceState);
         // TODO: add setContentView(...) invocation
         ButterKnife.bind(this);
+    }
+
+    @Override
+    public void checkPhoneError() {
+        viewMobiWrapper.setError("手机号格式不正确");
+    }
+
+    @Override
+    public void checkPhoneSuccess() {
+        viewMobiWrapper.setError("");
+        viewMobiWrapper.setErrorEnabled(false);
+    }
+
+    @Override
+    public void loginSuccess(LoginBean loginBean) {
+        this.finish();
     }
 }
