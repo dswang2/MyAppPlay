@@ -5,7 +5,6 @@ import android.support.design.widget.TextInputLayout;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 
@@ -17,6 +16,7 @@ import com.dbstar.myappplay.di.component.DaggerLoginComponent;
 import com.dbstar.myappplay.di.module.LoginModule;
 import com.dbstar.myappplay.presenter.LoginPresenter;
 import com.dbstar.myappplay.presenter.contract.LoginContract;
+import com.dbstar.myappplay.ui.widget.LoadingButton;
 import com.jakewharton.rxbinding.view.RxView;
 import com.jakewharton.rxbinding.widget.RxTextView;
 import com.mikepenz.iconics.IconicsDrawable;
@@ -45,7 +45,7 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
     @BindView(R.id.view_password_wrapper)
     TextInputLayout viewPasswordWrapper;
     @BindView(R.id.btn_login)
-    Button btnLogin;
+    LoadingButton btnLogin;
     @BindView(R.id.activity_login)
     LinearLayout activityLogin;
 
@@ -65,9 +65,6 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
     @Override
     protected void init() {
         initView();
-
-
-
     }
 
     private void initView() {
@@ -102,7 +99,7 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
             @Override
             public void call(Void aVoid) {
                 LogUtils.e("dswang_LoginActivity", "LoginActivity.call. = ");
-                mPresenter.login("18721830936","wdscf2008");
+                mPresenter.login(txtMobi.getText().toString().trim(),txtPassword.getText().toString().trim());
             }
         });
         
@@ -119,17 +116,17 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
 
     @Override
     public void showLoading() {
-
+        btnLogin.showLoading();
     }
 
     @Override
     public void dismissLoading() {
-
+        btnLogin.showButtonText();
     }
 
     @Override
     public void showError(String msg) {
-
+        btnLogin.showButtonText();
     }
 
     @Override
