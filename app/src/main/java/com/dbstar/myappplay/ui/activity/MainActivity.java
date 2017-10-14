@@ -13,11 +13,15 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.dbstar.myappplay.R;
 import com.dbstar.myappplay.bean.User;
 import com.dbstar.myappplay.common.imageloader.GlideCircleTransform;
+import com.dbstar.myappplay.common.util.ACache;
+import com.dbstar.myappplay.common.util.Constant;
+import com.dbstar.myappplay.common.util.LogUtils;
 import com.dbstar.myappplay.common.util.ToastUtils;
 import com.dbstar.myappplay.di.component.AppComponent;
 import com.dbstar.myappplay.ui.adapter.ViewPagerAdapter;
@@ -63,19 +67,35 @@ public class MainActivity extends BaseActivity {
     @Subscribe
     public void getUser(User user){
         Log.e("dswang","MainActivity.getUser(MainActivity.java:60)"+user.toString());
+        initUserHeadView(user);
+    }
+
+    private void initUserHeadView(User user) {
         // 利用user更新头像
         // .transform(new GlideCircleTransform(this)), glide 加载圆形ImageView图像
         Glide.with(this).load(user.getLogo_url()).transform(new GlideCircleTransform(this)).into(header_iv);
     }
 
     private void initUser() {
-        headerView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this,LoginActivity.class));
-                //mainDrawer.closeDrawers();
-            }
-        });
+
+        // 从Acache中读到登录信息，如果已经登录，显示用户头像；如果没有登录，则跳转到登录页面
+        Object objUser = ACache.get(this).getAsObject(Constant.USER);
+
+        if(objUser == null){
+            headerView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    startActivity(new Intent(MainActivity.this,LoginActivity.class));
+                    //mainDrawer.closeDrawers();
+                }
+            });
+        }else {
+            User user = (User) objUser;
+            LogUtils.e("dswang", "MainActivity.initUser.user = " + user.toString());
+            initUserHeadView(user);
+        }
+
+
 
     }
 
@@ -156,8 +176,9 @@ public class MainActivity extends BaseActivity {
                         ToastUtils.showSafeToast(MainActivity.this, "设置");
                         //mainDrawer.closeDrawers();
                         break;
-                    case R.id.main_nav_menu_help:
-                        ToastUtils.showSafeToast(MainActivity.this, "帮助和反馈");
+                    case R.id.main_nav_menu_quit:
+                        ToastUtils.showSafeToast(MainActivity.this, "退出登录");
+                        logout();
                         //mainDrawer.closeDrawers();
                         break;
                     case R.id.main_nav_menu_about:
@@ -170,6 +191,23 @@ public class MainActivity extends BaseActivity {
         });
 
 
+    }
+
+    private void logout() {
+        ACache aCache = ACache.get(this);
+        aCache.put(Constant.USER,"");
+        aCache.put(Constant.TOKEN,"");
+        // 设置默认头像
+//        header_iv.setImageDrawable(new IconicsDrawable(this, Cniao5Font.Icon.cniao_head).colorRes(R.color.white));
+        header_iv.setImageDrawable(null);
+        headerView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this,LoginActivity.class));
+                //mainDrawer.closeDrawers();
+            }
+        });
+        Toast.makeText(MainActivity.this,"您已退出登录",Toast.LENGTH_LONG).show();
     }
 
 
