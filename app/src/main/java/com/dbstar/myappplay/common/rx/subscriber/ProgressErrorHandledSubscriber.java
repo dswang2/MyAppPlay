@@ -2,7 +2,9 @@ package com.dbstar.myappplay.common.rx.subscriber;
 
 import android.content.Context;
 
+import com.dbstar.myappplay.common.exception.BaseException;
 import com.dbstar.myappplay.common.util.ProgressDialogHandler;
+import com.dbstar.myappplay.ui.BaseView;
 
 
 /**
@@ -14,11 +16,13 @@ public abstract class ProgressErrorHandledSubscriber<T> extends ErrorHandlerSubs
 
     private ProgressDialogHandler mProgressDialogHandler;
     protected Context mContext;
+    protected BaseView mBaseView;
 
 
-    public ProgressErrorHandledSubscriber(Context context) {
+    public ProgressErrorHandledSubscriber(Context context, BaseView mView) {
         super(context);
         mContext = context;
+        mBaseView = mView;
         mProgressDialogHandler = new ProgressDialogHandler(mContext, true, this);
     }
 
@@ -47,6 +51,8 @@ public abstract class ProgressErrorHandledSubscriber<T> extends ErrorHandlerSubs
         if (isShowProgressDialog()) {
             mProgressDialogHandler.dismissProgressDialog();
         }
+        BaseException baseException =  mRxErrorHandler.handleError(e);
+        mBaseView.showError(baseException.getDisplayMessage());
     }
 
     @Override

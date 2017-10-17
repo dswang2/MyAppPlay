@@ -2,10 +2,13 @@ package com.dbstar.myappplay.data.api;
 
 import com.dbstar.myappplay.bean.AppInfo;
 import com.dbstar.myappplay.bean.BaseBean;
+import com.dbstar.myappplay.bean.Category;
 import com.dbstar.myappplay.bean.IndexBean;
 import com.dbstar.myappplay.bean.LoginBean;
 import com.dbstar.myappplay.bean.PageBean;
 import com.dbstar.myappplay.bean.requestbean.LoginRequestBean;
+
+import java.util.List;
 
 import retrofit2.http.Body;
 import retrofit2.http.GET;
@@ -37,10 +40,12 @@ public interface ApiService {
     @GET("toplist")
     public Observable<BaseBean<PageBean<AppInfo>>> topList(@Query("page") int page);
 
-    @GET("toplist")
+    @GET("game")
     public Observable<BaseBean<PageBean<AppInfo>>> games(@Query("page") int page);
 
     @POST("login")
     public Observable<BaseBean<LoginBean>> login(@Body LoginRequestBean param);
 
+    @GET("category")
+    public Observable<BaseBean<List<Category>>> categories();
 }

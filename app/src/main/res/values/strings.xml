@@ -34,4 +34,5 @@
     <string name="hot_game">热门游戏</string>
     <string name="hot_top">热门主题</string>
     <string name="hot_app">热门应用</string>
+    <string name="error_token">登录失效，请重新登录</string>
 </resources>

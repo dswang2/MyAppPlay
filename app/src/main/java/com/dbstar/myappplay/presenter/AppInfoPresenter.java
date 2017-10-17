@@ -31,7 +31,7 @@ public class AppInfoPresenter extends BasePresenter<AppInfoModel, AppInfoContrac
     public void requestDatas(int type, int page) {
         Subscriber subscriber = null;
         if (page == 0) {
-            subscriber = new ProgressErrorHandledSubscriber<PageBean<AppInfo>>(mContext) {
+            subscriber = new ProgressErrorHandledSubscriber<PageBean<AppInfo>>(mContext,mView) {
                 @Override
                 public void onNext(PageBean<AppInfo> pageBean) {
                     Log.e("AppInfoPresenter", "onNext(AppInfoPresenter.java:29)" + pageBean.toString());

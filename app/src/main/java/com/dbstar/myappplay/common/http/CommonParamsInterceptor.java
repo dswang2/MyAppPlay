@@ -2,6 +2,7 @@ package com.dbstar.myappplay.common.http;
 
 import android.content.Context;
 
+import com.dbstar.myappplay.common.util.ACache;
 import com.dbstar.myappplay.common.util.Constant;
 import com.dbstar.myappplay.common.util.DensityUtil;
 import com.dbstar.myappplay.common.util.DeviceUtils;
@@ -54,7 +55,11 @@ public class CommonParamsInterceptor implements Interceptor {
         commomParamsMap.put(Constant.DENSITY_SCALE_FACTOR, mContext.getResources().getDisplayMetrics().density + "");
 
 
-        // 处理请求
+        // 添加token到公共参数之中
+        ACache aCache = ACache.get(mContext);
+        String token = aCache.getAsString(Constant.TOKEN);
+        commomParamsMap.put(Constant.TOKEN,token);
+
 
         // 请求方式
         String method = request.method();

@@ -41,6 +41,8 @@ public class BaseException extends Exception {
     public static final int SOCKET_ERROR = 0x8;
 
 
+    //Token 失效
+    public static final int  ERROR_TOKEN=10010;
 
 
     //    api /////////////////////////////////////////
@@ -173,6 +175,9 @@ public class BaseException extends Exception {
                 errorMsg = context.getResources().getString(R.string.error_login);
                 break;
 
+            case ApiException.ERROR_TOKEN:
+                errorMsg = context.getResources().getString(R.string.error_token);
+                break;
 
 
             default:

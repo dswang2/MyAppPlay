@@ -1,6 +1,7 @@
 package com.dbstar.myappplay.common.rx;
 
 import android.content.Context;
+import android.widget.Toast;
 
 import com.dbstar.myappplay.common.exception.ApiException;
 import com.dbstar.myappplay.common.exception.BaseException;
@@ -43,5 +44,11 @@ public class RxErrorHandler {
         exception.refreshDisplayMessage(mContext);
 
         return exception;
+    }
+
+    public void  showErrorMessage(BaseException e){
+
+        Toast.makeText(mContext,e.getDisplayMessage(),Toast.LENGTH_LONG).show();
+
     }
 }

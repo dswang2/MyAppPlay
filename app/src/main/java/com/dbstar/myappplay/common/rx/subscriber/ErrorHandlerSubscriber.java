@@ -13,7 +13,7 @@ import com.dbstar.myappplay.common.rx.RxErrorHandler;
 
 public abstract class ErrorHandlerSubscriber<T> extends DefualtSubscriber<T> {
     private Context mContext;
-    private RxErrorHandler mRxErrorHandler;
+    protected RxErrorHandler mRxErrorHandler;
 
     public ErrorHandlerSubscriber(Context context) {
         mContext = context;
@@ -35,6 +35,12 @@ public abstract class ErrorHandlerSubscriber<T> extends DefualtSubscriber<T> {
         }
         else {
             Toast.makeText(mContext,baseException.getDisplayMessage(),Toast.LENGTH_LONG).show();
+
+            mRxErrorHandler.showErrorMessage(baseException);
+//            if(baseException.getCode() == BaseException.ERROR_TOKEN){
+//                toLogin();
+//            }
+
         }
 
     }

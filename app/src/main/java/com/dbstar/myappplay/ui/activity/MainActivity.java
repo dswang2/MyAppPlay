@@ -1,5 +1,6 @@
 package com.dbstar.myappplay.ui.activity;
 
+import android.Manifest;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
@@ -27,8 +28,11 @@ import com.dbstar.myappplay.di.component.AppComponent;
 import com.dbstar.myappplay.ui.adapter.ViewPagerAdapter;
 import com.hwangjr.rxbus.RxBus;
 import com.hwangjr.rxbus.annotation.Subscribe;
+import com.tbruyelle.rxpermissions.Permission;
+import com.tbruyelle.rxpermissions.RxPermissions;
 
 import butterknife.BindView;
+import rx.functions.Action1;
 
 public class MainActivity extends BaseActivity {
 
@@ -61,12 +65,15 @@ public class MainActivity extends BaseActivity {
         //初始化 TabLayout
         initTabLayout();
 
+        // 申请权限
+        rxpermissionTest();
+
         initUser();
     }
 
     @Subscribe
-    public void getUser(User user){
-        Log.e("dswang","MainActivity.getUser(MainActivity.java:60)"+user.toString());
+    public void getUser(User user) {
+        Log.e("dswang", "MainActivity.getUser(MainActivity.java:60)" + user.toString());
         initUserHeadView(user);
     }
 
@@ -80,21 +87,21 @@ public class MainActivity extends BaseActivity {
 
         // 从Acache中读到登录信息，如果已经登录，显示用户头像；如果没有登录，则跳转到登录页面
         Object objUser = ACache.get(this).getAsObject(Constant.USER);
+        String objToken = ACache.get(this).getAsString(Constant.TOKEN);
 
-        if(objUser == null){
+        if (objUser == null || objToken == null || "".equals(objToken)) {
             headerView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    startActivity(new Intent(MainActivity.this,LoginActivity.class));
+                    startActivity(new Intent(MainActivity.this, LoginActivity.class));
                     //mainDrawer.closeDrawers();
                 }
             });
-        }else {
+        } else {
             User user = (User) objUser;
             LogUtils.e("dswang", "MainActivity.initUser.user = " + user.toString());
             initUserHeadView(user);
         }
-
 
 
     }
@@ -195,21 +202,55 @@ public class MainActivity extends BaseActivity {
 
     private void logout() {
         ACache aCache = ACache.get(this);
-        aCache.put(Constant.USER,"");
-        aCache.put(Constant.TOKEN,"");
+        aCache.put(Constant.USER, "");
+        aCache.put(Constant.TOKEN, "");
         // 设置默认头像
 //        header_iv.setImageDrawable(new IconicsDrawable(this, Cniao5Font.Icon.cniao_head).colorRes(R.color.white));
         header_iv.setImageDrawable(null);
         headerView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this,LoginActivity.class));
+                startActivity(new Intent(MainActivity.this, LoginActivity.class));
                 //mainDrawer.closeDrawers();
             }
         });
-        Toast.makeText(MainActivity.this,"您已退出登录",Toast.LENGTH_LONG).show();
+        Toast.makeText(MainActivity.this, "您已退出登录", Toast.LENGTH_LONG).show();
     }
 
+
+    private void rxpermissionTest() {
+        RxPermissions rxPermission = new RxPermissions(MainActivity.this);
+        rxPermission
+                .requestEach(
+//                        Manifest.permission.ACCESS_FINE_LOCATION,
+//                        Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE
+//                        Manifest.permission.READ_CALENDAR,
+//                        Manifest.permission.READ_CALL_LOG,
+//                        Manifest.permission.READ_CONTACTS,
+//                        Manifest.permission.READ_PHONE_STATE,
+//                        Manifest.permission.READ_SMS,
+//                        Manifest.permission.RECORD_AUDIO,
+//                        Manifest.permission.CAMERA,
+//                        Manifest.permission.CALL_PHONE,
+//                        Manifest.permission.SEND_SMS
+                )
+                .subscribe(new Action1<Permission>() {
+                    @Override
+                    public void call(Permission permission) {
+                        if (permission.granted) {
+                            // 用户已经同意该权限
+                            Log.e("CategoryFragment", "accept(CategoryFragment.java:52) " + permission.name + " is granted.");
+                        } else if (permission.shouldShowRequestPermissionRationale) {
+                            // 用户拒绝了该权限，没有选中『不再询问』（Never ask again）,那么下次再次启动时，还会提示请求权限的对话框
+                            Log.e("CategoryFragment", "accept(CategoryFragment.java:56) " + permission.name + " is denied. More info should be provided.");
+                        } else {
+                            // 用户拒绝了该权限，并且选中『不再询问』
+                            Log.e("CategoryFragment", "accept(CategoryFragment.java:56) " + permission.name + " is denied.");
+                        }
+                    }
+                });
+    }
 
     @Override
     protected void onDestroy() {
