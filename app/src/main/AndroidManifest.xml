@@ -41,6 +41,7 @@
         </activity>
         <activity android:name=".ui.activity.MainActivity" />
         <activity android:name=".ui.activity.LoginActivity"/>
+        <activity android:name=".ui.activity.CategoryAppActivity"/>
         <activity
             android:name=".ui.activity.GuideActivity"
             android:theme="@style/AppTheme.Notitle.FullStreem" />
