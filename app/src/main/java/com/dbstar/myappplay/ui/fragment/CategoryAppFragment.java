@@ -1,106 +1,62 @@
 package com.dbstar.myappplay.ui.fragment;
 
-import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.TextView;
+import android.annotation.SuppressLint;
 
-import com.dbstar.myappplay.AppApplication;
-import com.dbstar.myappplay.R;
+import com.dbstar.myappplay.common.util.Constant;
 import com.dbstar.myappplay.di.component.AppComponent;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.Unbinder;
+import com.dbstar.myappplay.di.component.DaggerAppInfoComponent;
+import com.dbstar.myappplay.di.module.AppInfoModule;
+import com.dbstar.myappplay.ui.adapter.AppInfoAdapter;
 
 /**
  * Created by wh on 2017/10/19.
  */
 
-public class CategoryAppFragment extends Fragment {
+@SuppressLint("ValidFragment")
+public class CategoryAppFragment extends BaseAppInfoFragment {
 
+    private int categoryId;
+    private int flagType;
 
-    @BindView(R.id.frag_games_txt)
-    TextView fragGamesTxt;
-
-    private Unbinder mUnbinder;
-
-    private AppApplication mApplication;
-
-    private View mRootView;
-
-
-    @Nullable
-    @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-
-        mRootView = inflater.inflate(setLayoutId(), container, false);
-        mUnbinder = ButterKnife.bind(this, mRootView);
-
-        return mRootView;
+    @SuppressLint("ValidFragment")
+    public CategoryAppFragment(int categoryId, int flagType) {
+        super();
+        this.categoryId = categoryId;
+        this.flagType = flagType;
     }
+
 
     @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-
-
-        this.mApplication = (AppApplication) getActivity().getApplication();
-        setupActivityComponent(mApplication.getAppComponent());
-
-        init();
-
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-
-        if (mUnbinder != Unbinder.EMPTY) {
-            mUnbinder.unbind();
-        }
-    }
-
-//    @Override
-//    public void showLoading() {
-//    }
-//
-//    @Override
-//    public void showError(String msg) {
-//    }
-//
-//    @Override
-//    public void dismissLoading() {
-//    }
-
-//    public abstract int setLayout();
-//
-//    public abstract  void setupAcitivtyComponent(AppComponent appComponent);
-//
-//
-//    public abstract void  init();
-
-
-    public String getTitle() {
-        return "精品";
-    }
-
-
-    protected int setLayoutId() {
-        return R.layout.frag_games;
-    }
-
-
     protected void init() {
-        fragGamesTxt.setText("分类，待实现");
+        mPresenter.requestCategoryApps(categoryId,page,flagType);
+        initRecyclerView();
     }
 
+    @Override
+    public void onLoadMoreRequested() {
+        mPresenter.requestCategoryApps(categoryId,page,flagType);
+    }
 
+    @Override
+    protected int type() {
+        return Constant.FRAG_TYPE_CATEGORY;
+
+    }
+
+    @Override
+    protected AppInfoAdapter initAppInfoAdapter() {
+        // 测试时使用
+        return AppInfoAdapter.builder().showPosition(true).showCategoryName(false).showBrief(true).build();
+    }
+
+    // 分类页面的通用Fragment，无法提供标题
+    @Override
+    public String getTitle() {
+        return "Frag_";
+    }
+
+    @Override
     protected void setupActivityComponent(AppComponent appComponent) {
-
+        DaggerAppInfoComponent.builder().appInfoModule(new AppInfoModule(this)).appComponent(appComponent).build().injectCategoryAppFragment(this);
     }
-
 }

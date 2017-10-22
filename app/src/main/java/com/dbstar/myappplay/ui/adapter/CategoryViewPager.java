@@ -4,6 +4,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
+import com.dbstar.myappplay.common.util.Constant;
 import com.dbstar.myappplay.ui.fragment.CategoryAppFragment;
 
 import java.util.ArrayList;
@@ -14,17 +15,19 @@ import java.util.List;
  */
 
 public class CategoryViewPager extends FragmentPagerAdapter {
+    private int mCategoryId;
     private  List<CategoryAppFragment> fragments = new ArrayList<>();;
 
-    public CategoryViewPager(FragmentManager fm) {
+    public CategoryViewPager(FragmentManager fm, int categoryId) {
         super(fm);
+        mCategoryId = categoryId;
         initFragments();
     }
 
     private void initFragments() {
-        fragments.add(new CategoryAppFragment());
-        fragments.add(new CategoryAppFragment());
-        fragments.add(new CategoryAppFragment());
+        fragments.add(new CategoryAppFragment(mCategoryId, Constant.CATEGORY_FEATURED));
+        fragments.add(new CategoryAppFragment(mCategoryId, Constant.CATEGORY_TOPLIST));
+        fragments.add(new CategoryAppFragment(mCategoryId, Constant.CATEGORY_NEWLIST));
     }
 
     @Override
@@ -39,18 +42,6 @@ public class CategoryViewPager extends FragmentPagerAdapter {
 
     @Override
     public CharSequence getPageTitle(int position) {
-        String title = fragments.get(position).getTitle();
-        switch (position){
-            case 0:
-                title = "精品";
-                break;
-            case 1:
-                title = "排行";
-                break;
-            case 2:
-                title = "新品";
-                break;
-        }
-        return title;
+        return fragments.get(position).getTitle() + position ;
     }
 }

@@ -8,6 +8,7 @@ import com.dbstar.myappplay.bean.PageBean;
 import com.dbstar.myappplay.common.rx.RxHttpReponseCompat;
 import com.dbstar.myappplay.common.rx.subscriber.ErrorHandlerSubscriber;
 import com.dbstar.myappplay.common.rx.subscriber.ProgressErrorHandledSubscriber;
+import com.dbstar.myappplay.common.util.Constant;
 import com.dbstar.myappplay.data.model.AppInfoModel;
 import com.dbstar.myappplay.presenter.contract.AppInfoContract;
 
@@ -20,15 +21,12 @@ import rx.Subscriber;
 
 public class AppInfoPresenter extends BasePresenter<AppInfoModel, AppInfoContract.AppInfoView> {
 
-    public static final int  TOP_LIST=1;
-    public static final int  GAME=2;
-
     public AppInfoPresenter(AppInfoModel model, AppInfoContract.AppInfoView view) {
         super(model, view);
     }
 
 
-    public void requestDatas(int type, int page) {
+    public void request(int type,int page,int categoryId,int flagType) {
         Subscriber subscriber = null;
         if (page == 0) {
             subscriber = new ProgressErrorHandledSubscriber<PageBean<AppInfo>>(mContext,mView) {
@@ -53,17 +51,37 @@ public class AppInfoPresenter extends BasePresenter<AppInfoModel, AppInfoContrac
                 }
             };
         }
-        getAppsObservable(type,page)
+        getAppsObservable(type,page,categoryId,flagType)
                 .compose(RxHttpReponseCompat.<PageBean<AppInfo>>compatResult())
                 .subscribe(subscriber);
     }
 
-    public Observable<BaseBean<PageBean<AppInfo>>> getAppsObservable(int type, int page){
+    public void requestDatas(int type, int page){
+        request(type,page,0,0);
+    }
+
+    public void requestCategoryApps(int categoryId,int page,int flagType){
+        request(Constant.FRAG_TYPE_CATEGORY,page,categoryId,flagType);
+    }
+
+
+
+    public Observable<BaseBean<PageBean<AppInfo>>> getAppsObservable(int type,int page,int categoryId,int flagType){
         switch (type){
-            case TOP_LIST:
+            case Constant.FRAG_TYPE_TOP_LIST:
                 return  mModel.topList(page);
-            case GAME:
+            case Constant.FRAG_TYPE_GAME:
                 return mModel.games(page);
+            case Constant.FRAG_TYPE_CATEGORY:
+                if (flagType == Constant.CATEGORY_FEATURED){
+                    return mModel.getFeaturedAppsByCategory(categoryId,page);
+                }
+                else if (flagType == Constant.CATEGORY_TOPLIST){
+                    return mModel.getTopListAppsByCategory(categoryId,page);
+                }
+                else if (flagType == Constant.CATEGORY_NEWLIST){
+                    return mModel.getNewListAppsByCategory(categoryId,flagType);
+                }
             default:
                 return Observable.empty();
         }

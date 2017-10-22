@@ -1,9 +1,9 @@
 package com.dbstar.myappplay.ui.fragment;
 
+import com.dbstar.myappplay.common.util.Constant;
 import com.dbstar.myappplay.di.component.AppComponent;
 import com.dbstar.myappplay.di.component.DaggerAppInfoComponent;
 import com.dbstar.myappplay.di.module.AppInfoModule;
-import com.dbstar.myappplay.presenter.AppInfoPresenter;
 import com.dbstar.myappplay.ui.adapter.AppInfoAdapter;
 
 /**
@@ -13,7 +13,7 @@ public class TopListFragment extends BaseAppInfoFragment {
 
     @Override
     protected int type() {
-        return AppInfoPresenter.TOP_LIST;
+        return Constant.FRAG_TYPE_TOP_LIST;
     }
 
     @Override

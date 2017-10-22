@@ -2,6 +2,7 @@ package com.dbstar.myappplay.di.component;
 
 import com.dbstar.myappplay.di.module.AppInfoModule;
 import com.dbstar.myappplay.di.qualifier.FramentScope;
+import com.dbstar.myappplay.ui.fragment.CategoryAppFragment;
 import com.dbstar.myappplay.ui.fragment.GamesFragment;
 import com.dbstar.myappplay.ui.fragment.TopListFragment;
 
@@ -16,4 +17,5 @@ public interface AppInfoComponent {
 
     void  injectTopListFragment(TopListFragment topListFragment);
     void  injectGamesFragment(GamesFragment gamesFragment);
+    void  injectCategoryAppFragment(CategoryAppFragment categoryAppFragment);
 }

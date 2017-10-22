@@ -12,7 +12,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.dbstar.myappplay.R;
 import com.dbstar.myappplay.bean.Category;
-import com.dbstar.myappplay.common.util.ToastUtils;
+import com.dbstar.myappplay.common.util.Constant;
 import com.dbstar.myappplay.di.component.AppComponent;
 import com.dbstar.myappplay.di.component.DaggerCategoryComponent;
 import com.dbstar.myappplay.di.module.CategoryModule;
@@ -52,8 +52,9 @@ public class CategoryFragment extends ProgressFragment<CategoryPresenter> implem
         category_rv_list.addOnItemTouchListener(new OnItemClickListener() {
             @Override
             public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
-                ToastUtils.showSafeToast(getActivity(),categoryAdapter.getData().get(position).getName());
-                startActivity(new Intent(getActivity(), CategoryAppActivity.class));
+                Intent intent = new Intent(getActivity(), CategoryAppActivity.class);
+                intent.putExtra(Constant.CATEGORY,categoryAdapter.getData().get(position));
+                startActivity(intent);
             }
         });
     }

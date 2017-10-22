@@ -27,6 +27,8 @@ import butterknife.Unbinder;
 
 public abstract class ProgressFragment<T extends BasePresenter> extends Fragment implements BaseView {
 
+
+
     private FrameLayout mRootView;
 
     // 三种状态界面

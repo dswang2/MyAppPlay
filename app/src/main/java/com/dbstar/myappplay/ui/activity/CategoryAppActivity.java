@@ -1,5 +1,6 @@
 package com.dbstar.myappplay.ui.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
@@ -7,6 +8,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 
 import com.dbstar.myappplay.R;
+import com.dbstar.myappplay.bean.Category;
+import com.dbstar.myappplay.common.util.Constant;
 import com.dbstar.myappplay.di.component.AppComponent;
 import com.dbstar.myappplay.di.component.DaggerCategoryAppComponent;
 import com.dbstar.myappplay.di.module.CategoryAppModule;
@@ -33,6 +36,8 @@ public class CategoryAppActivity extends BaseActivity<CategoryAppPresenter> impl
     @BindView(R.id.category_viewpager)
     ViewPager categoryViewpager;
 
+    private Category mCategory;
+
     @Override
     int setLayoutID() {
         return R.layout.activity_category;
@@ -40,33 +45,40 @@ public class CategoryAppActivity extends BaseActivity<CategoryAppPresenter> impl
 
     @Override
     protected void setupActivityComponent(AppComponent appComponent) {
-        DaggerCategoryAppComponent.builder()
-                .categoryAppModule(new CategoryAppModule(this))
-                .appComponent(appComponent)
-                .build().inject(this);
+        DaggerCategoryAppComponent.builder().categoryAppModule(new CategoryAppModule(this)).appComponent(appComponent).build().inject(this);
     }
 
     @Override
     protected void init() {
+        // 初始化数据
+        initData();
+
         // 初始化Toolbar
         initToolbar();
 
-        //初始化 TabLayout 和 ViewPager
-        initTabLayout();
+        if (null != mCategory) {
+            //初始化 TabLayout 和 ViewPager
+            initTabLayout();
+        }
+    }
+
+    private void initData() {
+        Intent intent = getIntent();
+        mCategory = (Category) intent.getSerializableExtra(Constant.CATEGORY);
     }
 
     private void initTabLayout() {
-        CategoryViewPager mCategoryViewPager = new CategoryViewPager(getSupportFragmentManager());
+        CategoryViewPager mCategoryViewPager = new CategoryViewPager(getSupportFragmentManager(),mCategory.getId());
         categoryViewpager.setOffscreenPageLimit(mCategoryViewPager.getCount());
         categoryViewpager.setAdapter(mCategoryViewPager);
         categoryTab.setupWithViewPager(categoryViewpager);
     }
 
     private void initToolbar() {
-        categoryToolbar.setNavigationIcon(new IconicsDrawable(this)
-                .icon(Ionicons.Icon.ion_ios_arrow_back)
-                .sizeDp(16)
-                .color(getResources().getColor(R.color.md_white_1000)));
+        if (null != mCategory && null != mCategory.getName()) {
+            categoryToolbar.setTitle(mCategory.getName());
+        }
+        categoryToolbar.setNavigationIcon(new IconicsDrawable(this).icon(Ionicons.Icon.ion_ios_arrow_back).sizeDp(16).color(getResources().getColor(R.color.md_white_1000)));
 
         categoryToolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override

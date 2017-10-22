@@ -1,10 +1,12 @@
 package com.dbstar.myappplay.bean;
 
+import java.io.Serializable;
+
 /**
  * Created by wh on 2017/10/16.
  */
 
-public class Category {
+public class Category implements Serializable{
 
     /**
      * setName : true
@@ -370,6 +372,6 @@ public class Category {
         this.status = status;
     }
 
-    public static class HdIconBean {
+    public class HdIconBean  implements Serializable {
     }
 }
