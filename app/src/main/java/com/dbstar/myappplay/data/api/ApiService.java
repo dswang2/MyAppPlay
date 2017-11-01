@@ -1,5 +1,6 @@
 package com.dbstar.myappplay.data.api;
 
+import com.dbstar.myappplay.bean.AppDetail;
 import com.dbstar.myappplay.bean.AppInfo;
 import com.dbstar.myappplay.bean.BaseBean;
 import com.dbstar.myappplay.bean.Category;
@@ -58,4 +59,9 @@ public interface ApiService {
 
     @GET("category/newlist/{categoryid}")
     Observable<BaseBean<PageBean<AppInfo>>> getNewListAppsByCategory(@Path("categoryid") int categoryid,@Query("page") int page);
+
+    @GET("app/{id}")
+    Observable<BaseBean<AppDetail>> getAppDetail(@Path("id") int appid);
+    // 详情：http://112.124.22.238:8081/course_api/cniaoplay/app/{id}
+
 }

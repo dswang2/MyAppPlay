@@ -1,5 +1,6 @@
 package com.dbstar.myappplay.data.model;
 
+import com.dbstar.myappplay.bean.AppDetail;
 import com.dbstar.myappplay.bean.AppInfo;
 import com.dbstar.myappplay.bean.BaseBean;
 import com.dbstar.myappplay.bean.IndexBean;
@@ -50,4 +51,7 @@ public class AppInfoModel {
         return mApiService.getNewListAppsByCategory(categoryid, page);
     }
 
+    public Observable<BaseBean<AppDetail>> getAppDetai(int appID){
+        return mApiService.getAppDetail(appID);
+    }
 }

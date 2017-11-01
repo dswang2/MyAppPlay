@@ -2,7 +2,6 @@ package com.dbstar.myappplay.di.module;
 
 import android.app.ProgressDialog;
 
-import com.dbstar.myappplay.data.api.ApiService;
 import com.dbstar.myappplay.data.model.AppInfoModel;
 import com.dbstar.myappplay.presenter.AppInfoPresenter;
 import com.dbstar.myappplay.presenter.contract.AppInfoContract;
@@ -15,7 +14,7 @@ import dagger.Provides;
  * Created by wh on 2017/8/24.
  */
 
-@Module
+@Module(includes = {AppModelModule.class})
 public class AppInfoModule {
 
     private AppInfoContract.AppInfoView mView;
@@ -31,11 +30,6 @@ public class AppInfoModule {
     @Provides
     public AppInfoPresenter provideAppInfoPresenter(AppInfoContract.AppInfoView view, AppInfoModel model){
         return new AppInfoPresenter(model,view);
-    }
-
-    @Provides
-    public AppInfoModel provideRecommendModel(ApiService apiService){
-        return new AppInfoModel(apiService);
     }
 
     @Provides

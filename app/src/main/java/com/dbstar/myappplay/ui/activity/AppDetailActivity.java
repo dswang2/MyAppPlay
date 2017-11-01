@@ -9,10 +9,17 @@ import android.support.design.widget.CoordinatorLayout;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.dbstar.myappplay.R;
+import com.dbstar.myappplay.bean.AppDetail;
 import com.dbstar.myappplay.common.util.DensityUtil;
 import com.dbstar.myappplay.di.component.AppComponent;
+import com.dbstar.myappplay.di.component.DaggerAppDetailComponent;
+import com.dbstar.myappplay.di.module.AppDetaiModule;
+import com.dbstar.myappplay.di.module.AppModelModule;
+import com.dbstar.myappplay.presenter.AppDetailPresenter;
+import com.dbstar.myappplay.presenter.contract.AppDetailContract;
 import com.mikepenz.iconics.IconicsDrawable;
 import com.mikepenz.ionicons_typeface_library.Ionicons;
 
@@ -22,7 +29,7 @@ import butterknife.BindView;
  * Created by wh on 2017/10/30.
  */
 
-public class AppDetailActivity extends BaseActivity {
+public class AppDetailActivity extends BaseActivity<AppDetailPresenter> implements AppDetailContract.IDetailView {
 
     @BindView(R.id.view_cache)
     public View view_cache;
@@ -32,6 +39,9 @@ public class AppDetailActivity extends BaseActivity {
 
     @BindView(R.id.detail_toolbar)
     public Toolbar detail_toolbar;
+
+    @BindView(R.id.tv_detail)
+    public TextView tv_detail;
 
     private ObjectAnimator animator;
 
@@ -43,14 +53,27 @@ public class AppDetailActivity extends BaseActivity {
 
     @Override
     protected void setupActivityComponent(AppComponent appComponent) {
-
+        DaggerAppDetailComponent.builder()
+                .appComponent(appComponent)
+                .appModelModule(new AppModelModule())
+                .appDetaiModule(new AppDetaiModule(this))
+                .build().inject(this);
     }
 
     @Override
     protected void init() {
 
         initToolbar();
+        initAnimitor();
+        initData();
+    }
 
+    private void initData() {
+        // 暖暖环游世界助手（id：85723）
+        mPresenter.requestAppDetails(85723);
+    }
+
+    private void initAnimitor() {
         View view = mAppApplication.getView();
         Bitmap bitmap = getViewImageCache(view);
         if (bitmap != null) {
@@ -111,7 +134,7 @@ public class AppDetailActivity extends BaseActivity {
         float f = 2 * screenH / height;
         animator = ObjectAnimator.ofFloat(view_cache, "scaleY", 1f, f);
         animator.setStartDelay(500);
-        animator.setDuration(1500);
+        animator.setDuration(500);
         animator.addListener(new AnimatorListenerAdapter() {
             @Override
             public void onAnimationEnd(Animator animation) {
@@ -145,5 +168,25 @@ public class AppDetailActivity extends BaseActivity {
     protected void onDestroy() {
         animator.cancel();
         super.onDestroy();
+    }
+
+    @Override
+    public void showLoading() {
+
+    }
+
+    @Override
+    public void dismissLoading() {
+
+    }
+
+    @Override
+    public void showError(String msg) {
+
+    }
+
+    @Override
+    public void showDetail(AppDetail detail) {
+        tv_detail.setText(detail.toString());
     }
 }
