@@ -53,6 +53,8 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        mButterKnifeUnbinder.unbind();
+        if(mButterKnifeUnbinder != Unbinder.EMPTY){
+            mButterKnifeUnbinder.unbind();
+        }
     }
 }

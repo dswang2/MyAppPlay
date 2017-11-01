@@ -381,7 +381,7 @@ public class AppInfo implements Serializable{
         this.diffFileSize = diffFileSize;
     }
 
-    public static class HdIconBean {
+    public class HdIconBean implements Serializable{
         /**
          * main : AppStore/00ae44ad3f452a5b961015b11273a99455041916e
          */

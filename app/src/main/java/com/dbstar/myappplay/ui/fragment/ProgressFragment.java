@@ -43,7 +43,7 @@ public abstract class ProgressFragment<T extends BasePresenter> extends Fragment
 
     private Unbinder mUnbinder;
 
-    private AppApplication mApplication;
+    protected AppApplication mApplication;
 
     @Nullable
     @Override

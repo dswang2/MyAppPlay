@@ -1,17 +1,21 @@
 package com.dbstar.myappplay.ui.fragment;
 
+import android.content.Intent;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.dbstar.myappplay.R;
 import com.dbstar.myappplay.bean.AppInfo;
 import com.dbstar.myappplay.bean.PageBean;
+import com.dbstar.myappplay.common.util.Constant;
 import com.dbstar.myappplay.di.component.AppComponent;
 import com.dbstar.myappplay.presenter.AppInfoPresenter;
 import com.dbstar.myappplay.presenter.contract.AppInfoContract;
+import com.dbstar.myappplay.ui.activity.AppDetailActivity;
 import com.dbstar.myappplay.ui.adapter.AppInfoAdapter;
 
 import butterknife.BindView;
@@ -51,6 +55,19 @@ public abstract class BaseAppInfoFragment extends ProgressFragment<AppInfoPresen
         // 将 pageBeam填充到RecycleList中
         appInfoAdapter = initAppInfoAdapter();
         appInfoAdapter.setOnLoadMoreListener(this);
+        appInfoAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                // 设置view作为缓存
+                mApplication.setViewCache(view);
+
+                // 传递数据并跳转
+                AppInfo appInfo = (AppInfo) adapter.getItem(position);
+                Intent intent = new Intent(getActivity(), AppDetailActivity.class);
+                intent.putExtra(Constant.APPINFO,appInfo);
+                startActivity(intent);
+            }
+        });
         mRecyclerView.setAdapter(appInfoAdapter);
     }
 

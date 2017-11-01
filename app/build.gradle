@@ -85,4 +85,7 @@ dependencies {
     compile ('com.hwangjr.rxbus:rxbus:1.0.3') {
         exclude group: 'com.hwangjr.utils', module: 'timber'
     }
+
+    // Toolbar折叠效果
+    compile 'com.zoonref:simple-view-behavior:1.0'
 }

@@ -35,4 +35,7 @@ public class Constant {
     public static final int CATEGORY_TOPLIST=1;
     // 分类之新品
     public static final int CATEGORY_NEWLIST=2;
+
+    // 应用详情
+    public static final String APPINFO = "appinfo";
 }

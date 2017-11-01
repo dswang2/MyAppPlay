@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#60006000"
+    android:orientation="vertical">
+
+    <View
+        android:id="@+id/view_cache"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <android.support.design.widget.CoordinatorLayout
+        android:id="@+id/view_coordinator"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/color_w"
+        android:visibility="gone">
+
+        <android.support.design.widget.AppBarLayout
+            android:id="@+id/app_bar"
+            android:layout_width="match_parent"
+            android:layout_height="160dp"
+            android:theme="@style/AppTheme.AppBarOverlay">
+            <!--AppBarOverlay，直接继承 ThemeOverlay.AppCompat.Dark.ActionBar-->
+
+            <android.support.design.widget.CollapsingToolbarLayout
+                android:id="@+id/toolbar_layout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                app:contentScrim="?attr/colorPrimary"
+                app:layout_scrollFlags="scroll|exitUntilCollapsed|snap"
+                app:statusBarScrim="@color/colorPrimary"
+                app:titleEnabled="false">
+
+
+                <ImageView
+                    android:id="@+id/img_icon"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="10dp"
+                    android:src="@mipmap/ic_launcher"
+                    app:layout_collapseMode="parallax"
+                    />
+                <!--app:layout_collapseMode="parallax"  // 显示隐藏的效果差-->
+
+                <android.support.v7.widget.Toolbar
+                    android:id="@+id/detail_toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    app:layout_collapseMode="pin"
+                    app:popupTheme="@style/AppTheme.PopupOverlay"
+                    >
+                    <!--app:title="详情"-->
+                </android.support.v7.widget.Toolbar>
+
+            </android.support.design.widget.CollapsingToolbarLayout>
+
+
+        </android.support.design.widget.AppBarLayout>
+
+        <android.support.v4.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:background="@color/color_w"
+                android:gravity="center"
+                android:text="@string/test" />
+
+        </android.support.v4.widget.NestedScrollView>
+
+        <TextView
+            android:id="@+id/txt_name"
+            style="@style/Text_Title_Large"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center|top"
+            android:layout_marginTop="130dp"
+            android:elevation="5dp"
+            android:text="@string/app_name"
+            android:textColor="@color/white"
+            app:dependTargetY="-100dp"
+            app:dependType="y"
+            app:dependsOn="@+id/app_bar"
+            app:layout_behavior="com.zoonref.SimpleViewBehavior"
+            app:targetX="54dp"
+            app:targetY="14dp" />
+
+            <!--app:targetX="36dp"
+                app:targetY="-12dp"
+                // 最终TextView的位置
+            -->
+
+    </android.support.design.widget.CoordinatorLayout>
+
+
+</LinearLayout>
