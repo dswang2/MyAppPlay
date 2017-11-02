@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ImageView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginRight="2dp"
+    android:adjustViewBounds="true"
+    android:maxWidth="150dp"
+    android:scaleType="centerCrop">
+
+    <!--android:scaleType="center"
+    按比例扩大图片的size居中显示
+
+    android:adjustViewBounds
+    是否保持原图的长宽比-->
+
+</ImageView>

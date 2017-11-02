@@ -33,6 +33,12 @@ public class AppInfoAdapter extends BaseQuickAdapter<AppInfo,BaseViewHolder>{
         openLoadAnimation();
     }
 
+    private AppInfoAdapter(Builder builder,int templateID) {
+        super(templateID);
+        this.builder = builder;
+        openLoadAnimation();
+    }
+
     @Override
     protected void convert(BaseViewHolder helper, AppInfo item) {
         ImageLoader.load(baseImgUrl+item.getIcon(), (ImageView) helper.getView(R.id.img_icons));
@@ -78,6 +84,10 @@ public class AppInfoAdapter extends BaseQuickAdapter<AppInfo,BaseViewHolder>{
 
         public AppInfoAdapter build(){
             return new AppInfoAdapter(this);
+        }
+
+        public AppInfoAdapter build(int templateID){
+            return new AppInfoAdapter(this,templateID);
         }
     }
 

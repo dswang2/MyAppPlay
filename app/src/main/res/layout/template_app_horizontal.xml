@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@color/color_w"
+    android:gravity="center_horizontal"
+    android:padding="10dp">
+
+    <TextView
+        android:id="@+id/txt_position"
+        style="@style/Text_Title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="50dp"
+        android:text="1."
+        android:textSize="18dp" />
+
+    <ImageView
+        android:id="@+id/img_icons"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:layout_below="@+id/txt_position"
+        android:layout_centerHorizontal="true"
+        android:src="@mipmap/ic_launcher" />
+
+
+    <LinearLayout
+        android:id="@+id/linear_appinfo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/img_icons"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="5dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/text_titles"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_centerHorizontal="true"
+            android:text="微信"
+            android:textColor="@android:color/black"
+            android:textSize="20dp" />
+
+
+        <TextView
+            android:id="@+id/text_sizes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="50 M"
+            android:textSize="10dp" />
+
+        <TextView
+            android:id="@+id/txt_category"
+            style="@style/Text_Content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="社交" />
+
+
+        <TextView
+            android:id="@+id/txt_brief"
+            style="@style/Text_Content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="社交" />
+
+    </LinearLayout>
+
+
+    <Button
+        android:id="@+id/btn_dls"
+        android:layout_width="60dp"
+        android:layout_height="40dp"
+        android:layout_below="@+id/linear_appinfo"
+        android:layout_centerHorizontal="true"
+        android:background="#24AA42"
+        android:text="下载"
+        android:textColor="@android:color/white" />
+
+
+</RelativeLayout>

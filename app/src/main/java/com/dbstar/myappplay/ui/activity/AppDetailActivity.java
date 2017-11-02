@@ -6,13 +6,23 @@ import android.animation.ObjectAnimator;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.support.design.widget.CoordinatorLayout;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.DividerItemDecoration;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.dbstar.myappplay.R;
 import com.dbstar.myappplay.bean.AppDetail;
+import com.dbstar.myappplay.bean.AppInfo;
+import com.dbstar.myappplay.common.imageloader.ImageLoader;
+import com.dbstar.myappplay.common.util.Constant;
+import com.dbstar.myappplay.common.util.DateUtils;
 import com.dbstar.myappplay.common.util.DensityUtil;
 import com.dbstar.myappplay.di.component.AppComponent;
 import com.dbstar.myappplay.di.component.DaggerAppDetailComponent;
@@ -20,8 +30,10 @@ import com.dbstar.myappplay.di.module.AppDetaiModule;
 import com.dbstar.myappplay.di.module.AppModelModule;
 import com.dbstar.myappplay.presenter.AppDetailPresenter;
 import com.dbstar.myappplay.presenter.contract.AppDetailContract;
+import com.dbstar.myappplay.ui.adapter.AppInfoAdapter;
 import com.mikepenz.iconics.IconicsDrawable;
 import com.mikepenz.ionicons_typeface_library.Ionicons;
+import com.ms.square.android.expandabletextview.ExpandableTextView;
 
 import butterknife.BindView;
 
@@ -43,12 +55,38 @@ public class AppDetailActivity extends BaseActivity<AppDetailPresenter> implemen
     @BindView(R.id.tv_detail)
     public TextView tv_detail;
 
+    @BindView(R.id.img_icon)
+    ImageView img_icon;
+
+    @BindView(R.id.linear_screenshot)
+    LinearLayout linear_screenshot;
+
+    @BindView(R.id.view_introduction)
+    ExpandableTextView view_introduction;
+
+    @BindView(R.id.txt_update_time)
+    TextView mTxtUpdateTime;
+    @BindView(R.id.txt_version)
+    TextView mTxtVersion;
+    @BindView(R.id.txt_apk_size)
+    TextView mTxtApkSize;
+    @BindView(R.id.txt_publisher)
+    TextView mTxtPublisher;
+    @BindView(R.id.txt_publisher2)
+    TextView mTxtPublisher2;
+
+    @BindView(R.id.recycler_view_same_dev)
+    RecyclerView recycler_view_same_dev;
+
+    private LayoutInflater inflater;
     private ObjectAnimator animator;
+    private AppInfo mAppInfo;
+    private AppInfoAdapter mAdapter;
 
 
     @Override
     int setLayoutID() {
-        return R.layout.app_detail_activity;
+        return R.layout.activity_app_detail;
     }
 
     @Override
@@ -62,15 +100,31 @@ public class AppDetailActivity extends BaseActivity<AppDetailPresenter> implemen
 
     @Override
     protected void init() {
-
+        initVars();
+        getAppInfos();
         initToolbar();
         initAnimitor();
+        initRecyclerView();
         initData();
+    }
+
+    private void initVars() {
+        inflater = LayoutInflater.from(this);
+    }
+
+    private void getAppInfos() {
+        mAppInfo = (AppInfo) getIntent().getSerializableExtra(Constant.APPINFO);
+        if (mAppInfo != null) {
+            String urlIcon = mAppInfo.getIcon();
+            ImageLoader.load(Constant.BASE_IMG_URL + urlIcon, img_icon);
+        }
     }
 
     private void initData() {
         // 暖暖环游世界助手（id：85723）
-        mPresenter.requestAppDetails(85723);
+        if (mAppInfo != null) {
+            mPresenter.requestAppDetails(mAppInfo.getId());
+        }
     }
 
     private void initAnimitor() {
@@ -187,6 +241,47 @@ public class AppDetailActivity extends BaseActivity<AppDetailPresenter> implemen
 
     @Override
     public void showDetail(AppDetail detail) {
+        // 运行截图
+        showScreenshot(detail);
+        // 详情介绍
+        view_introduction.setText(detail.getIntroduction());
+
+        // 详细信息
+        mTxtUpdateTime.setText(DateUtils.formatDate(detail.getUpdateTime()));
+        mTxtApkSize.setText((detail.getApkSize() / 1014 / 1024) + " Mb");
+        mTxtVersion.setText(detail.getVersionName());
+        mTxtPublisher.setText(detail.getPublisherName());
+        mTxtPublisher2.setText(detail.getPublisherName());
+
+        // 相同开发者的应用列表
+        mAdapter.addData(detail.getSameDevAppInfoList());
+
+       // json 详情字符串
         tv_detail.setText(detail.toString());
+    }
+
+    private void initRecyclerView() {
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+        layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
+        recycler_view_same_dev.setLayoutManager(layoutManager);
+        recycler_view_same_dev.addItemDecoration(new DividerItemDecoration(this,DividerItemDecoration.VERTICAL));
+        recycler_view_same_dev.setItemAnimator(new DefaultItemAnimator());
+
+        // 数据适配器
+        mAdapter = AppInfoAdapter.builder().showPosition(false).showCategoryName(false).showBrief(false).build(R.layout.template_app_horizontal);
+        recycler_view_same_dev.setAdapter(mAdapter);
+        //
+    }
+
+    private void showScreenshot(AppDetail detail) {
+        String urlScreenshot = detail.getScreenshot();
+        String[] arrUrlScreenshot = urlScreenshot.split(",");
+        int length = arrUrlScreenshot.length;
+        for (int i = 0; i < length; i++) {
+//            arrUrlScreenshot[i]
+            ImageView view = (ImageView) inflater.inflate(R.layout.template_image, linear_screenshot, false);
+            ImageLoader.load(Constant.BASE_IMG_URL + arrUrlScreenshot[i], view);
+            linear_screenshot.addView(view);
+        }
     }
 }

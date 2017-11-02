@@ -65,12 +65,7 @@
             android:layout_height="wrap_content"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-            <TextView
-                android:id="@+id/tv_detail"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/color_w"
-                android:text="@string/test" />
+            <include layout="@layout/detail"/>
 
         </android.support.v4.widget.NestedScrollView>
 
