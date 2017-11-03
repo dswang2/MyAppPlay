@@ -7,7 +7,6 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -52,9 +51,6 @@ public class AppDetailActivity extends BaseActivity<AppDetailPresenter> implemen
     @BindView(R.id.detail_toolbar)
     public Toolbar detail_toolbar;
 
-    @BindView(R.id.tv_detail)
-    public TextView tv_detail;
-
     @BindView(R.id.img_icon)
     ImageView img_icon;
 
@@ -78,10 +74,14 @@ public class AppDetailActivity extends BaseActivity<AppDetailPresenter> implemen
     @BindView(R.id.recycler_view_same_dev)
     RecyclerView recycler_view_same_dev;
 
+    @BindView(R.id.recycler_view_similar_dev)
+    RecyclerView recycler_view_similar_dev;
+
     private LayoutInflater inflater;
     private ObjectAnimator animator;
     private AppInfo mAppInfo;
     private AppInfoAdapter mAdapter;
+    private AppInfoAdapter mAdapter4Similar;
 
 
     @Override
@@ -256,21 +256,32 @@ public class AppDetailActivity extends BaseActivity<AppDetailPresenter> implemen
         // 相同开发者的应用列表
         mAdapter.addData(detail.getSameDevAppInfoList());
 
-       // json 详情字符串
-        tv_detail.setText(detail.toString());
+        // 相关应用列表
+        mAdapter4Similar.addData(detail.getRelateAppInfoList());
     }
 
     private void initRecyclerView() {
+        //相同开发者应用列表
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
         recycler_view_same_dev.setLayoutManager(layoutManager);
-        recycler_view_same_dev.addItemDecoration(new DividerItemDecoration(this,DividerItemDecoration.VERTICAL));
+//        recycler_view_same_dev.addItemDecoration(new DividerItemDecoration(this,DividerItemDecoration.VERTICAL));
         recycler_view_same_dev.setItemAnimator(new DefaultItemAnimator());
-
-        // 数据适配器
+        // 相同开发者应用列表 数据适配器
         mAdapter = AppInfoAdapter.builder().showPosition(false).showCategoryName(false).showBrief(false).build(R.layout.template_app_horizontal);
         recycler_view_same_dev.setAdapter(mAdapter);
-        //
+
+        //　相关应用列表
+        LinearLayoutManager layoutManager4Similar = new LinearLayoutManager(this);
+        layoutManager4Similar.setOrientation(LinearLayoutManager.HORIZONTAL);
+        recycler_view_similar_dev.setLayoutManager(layoutManager4Similar);
+//        recycler_view_same_dev.addItemDecoration(new DividerItemDecoration(this,DividerItemDecoration.VERTICAL));
+        recycler_view_same_dev.setItemAnimator(new DefaultItemAnimator());
+        // 相关应用列表 数据适配器
+        mAdapter4Similar = AppInfoAdapter.builder().showPosition(false).showCategoryName(false).showBrief(false).build(R.layout.template_app_horizontal);
+        recycler_view_similar_dev.setAdapter(mAdapter4Similar);
+
+
     }
 
     private void showScreenshot(AppDetail detail) {

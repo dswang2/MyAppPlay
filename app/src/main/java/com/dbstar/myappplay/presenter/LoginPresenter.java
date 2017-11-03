@@ -24,7 +24,7 @@ public class LoginPresenter extends BasePresenter<LoginContract.ILoginModel, Log
         super(model, view);
     }
 
-    public void login(String email, String password) {
+    public void login(final String email, final String password) {
         LogUtils.e("dswang", "LoginPresenter.login.email = " + email);
         LogUtils.e("dswang", "LoginPresenter.login.password = " + password);
 
@@ -62,16 +62,21 @@ public class LoginPresenter extends BasePresenter<LoginContract.ILoginModel, Log
                     public void onNext(LoginBean loginBean) {
                         LogUtils.e("dswang", "LoginPresenter.onNext. = " + loginBean.toString());
                         mView.loginSuccess(loginBean);
-                        saveUser(loginBean);
+                        saveToken(loginBean);
+                        saveUser(email,password);
                         // 利用RxBus 通知侧滑导航栏的头部更新登陆成功的头像
                         RxBus.get().post(loginBean.getUser());
                     }
                 });
     }
 
-    private void saveUser(LoginBean loginBean) {
+    private void saveUser(String email, String password){
         ACache aCache = ACache.get(mContext);
-        aCache.put(Constant.USER, loginBean.getUser());
+        aCache.put(Constant.EMAIL, email);
+        aCache.put(Constant.PASSWORD, password);
+    }
+    private void saveToken(LoginBean loginBean) {
+        ACache aCache = ACache.get(mContext);
         aCache.put(Constant.TOKEN, loginBean.getToken());
     }
 }

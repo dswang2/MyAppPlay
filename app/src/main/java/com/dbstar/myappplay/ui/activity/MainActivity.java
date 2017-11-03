@@ -85,6 +85,8 @@ public class MainActivity extends BaseActivity {
 
     private void initUser() {
 
+        // 再登录
+
         // 从Acache中读到登录信息，如果已经登录，显示用户头像；如果没有登录，则跳转到登录页面
         Object objUser = ACache.get(this).getAsObject(Constant.USER);
         String objToken = ACache.get(this).getAsString(Constant.TOKEN);

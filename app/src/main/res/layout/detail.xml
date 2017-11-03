@@ -13,7 +13,8 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
         android:background="@color/color_w"
-        android:paddingBottom="10dp"
+        android:paddingBottom="5dp"
+        android:paddingTop="2dp"
         android:scrollbars="none">
 
         <LinearLayout
@@ -26,7 +27,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="5dp"
         android:background="@color/color_w"
         android:gravity="center_horizontal"
         android:orientation="vertical"
@@ -69,7 +70,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="5dp"
         android:background="@color/white"
         android:gravity="center_horizontal"
         android:orientation="vertical"
@@ -116,7 +117,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="5dp"
             android:orientation="horizontal">
 
 
@@ -244,12 +245,41 @@
 
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/tv_detail"
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/color_w"
-        android:text="@string/test" />
+        android:layout_marginTop="10dp"
+        android:background="@color/white"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="15dp">
+
+        <TextView
+            style="@style/Text_Title_Large"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="相关的应用" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycler_view_similar_dev"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:clipToPadding="false"
+            android:elevation="3dp"
+            android:scrollbarStyle="outsideOverlay"
+            android:scrollbars="none" />
+
+        <!--
+        android:clipToPadding="false"	// 不滚动到RecycleVeiw的padding
+        android:elevation="3dp"	//阴影，立体效果
+        android:scrollbarStyle="outsideOverlay"	//滚动条的位置与占用的padding
+        -->
+
+    </LinearLayout>
+
+
 
 
 </LinearLayout>

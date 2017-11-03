@@ -10,6 +10,8 @@ import android.widget.LinearLayout;
 
 import com.dbstar.myappplay.R;
 import com.dbstar.myappplay.bean.LoginBean;
+import com.dbstar.myappplay.common.util.ACache;
+import com.dbstar.myappplay.common.util.Constant;
 import com.dbstar.myappplay.common.util.LogUtils;
 import com.dbstar.myappplay.di.component.AppComponent;
 import com.dbstar.myappplay.di.component.DaggerLoginComponent;
@@ -64,7 +66,21 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
 
     @Override
     protected void init() {
+        initData();
         initView();
+    }
+
+    private void initData() {
+        String email = ACache.get(this).getAsString(Constant.EMAIL);
+        String passw = ACache.get(this).getAsString(Constant.PASSWORD);
+        if(email!=null){
+            txtMobi.setText(email);
+        }
+        if(passw!=null){
+            txtPassword.setText(passw);
+        }
+
+
     }
 
     private void initView() {

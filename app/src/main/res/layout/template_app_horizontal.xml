@@ -49,6 +49,7 @@
             android:id="@+id/text_sizes"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
             android:text="50 M"
             android:textSize="10dp" />
 
@@ -57,6 +58,7 @@
             style="@style/Text_Content"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
             android:text="社交" />
 
 
@@ -65,6 +67,7 @@
             style="@style/Text_Content"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
             android:text="社交" />
 
     </LinearLayout>

@@ -20,6 +20,9 @@ public class Constant {
 
     public static final String TOKEN = "token";
     public static final String USER = "user";
+    public static final String EMAIL = "email";
+    public static final String PASSWORD = "password";
+
     public static final String CATEGORY = "category";
 
     // 类型，虽然都是详情页，返回的额数据差不多，但不同类型的API接口不一致，请求网络时调用的方法不一样
@@ -40,4 +43,6 @@ public class Constant {
 
     // 应用详情
     public static final String APPINFO = "appinfo";
+
+
 }
