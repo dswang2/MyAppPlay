@@ -35,62 +35,62 @@ dependencies {
     compile rootProject.ext.dependencies["design"]
 
     // icon
-    compile 'com.mikepenz:iconics-core:2.8.1@aar'
-    compile 'com.mikepenz:ionicons-typeface:2.0.1.2@aar'
+    compile rootProject.ext.dependencies['iconics']
+    compile rootProject.ext.dependencies['ionicons-typeface']
 
     //butterknife
-    apt 'com.jakewharton:butterknife-compiler:8.6.0'
-    compile 'com.jakewharton:butterknife:8.6.0'
+    apt rootProject.ext.dependencies['butterknife-compiler']
+    compile rootProject.ext.dependencies['butterknife']
 
     //RxJava
-    compile 'io.reactivex:rxandroid:1.2.1'
-    compile 'io.reactivex:rxjava:1.1.6'
+    compile rootProject.ext.dependencies["rxandroid"]
+    compile rootProject.ext.dependencies["rxjava"]
 
     //retrofit
-    compile 'com.squareup.retrofit2:retrofit:2.1.0'
-    compile 'com.squareup.retrofit2:adapter-rxjava:2.1.0'
-    compile 'com.squareup.retrofit2:converter-gson:2.1.0'
+    compile rootProject.ext.dependencies['retrofit2']
+    compile rootProject.ext.dependencies['retrofit2-adapter-rxjava']
+    compile rootProject.ext.dependencies['retrofit2-converter-gson']
 
     // okHttp
-    compile 'com.squareup.okhttp3:okhttp:3.4.1'
-    compile 'com.squareup.okhttp3:logging-interceptor:3.4.1'
+    compile rootProject.ext.dependencies['okhttp3']
+    compile rootProject.ext.dependencies['logging-interceptor']
 
     //picasso
-    compile 'com.squareup.picasso:picasso:2.5.2'
+    compile rootProject.ext.dependencies['picasso']
 
     //dagger2
-    apt 'com.google.dagger:dagger-compiler:2.0.2' //指定注解处理器
-    compile 'com.google.dagger:dagger:2.0.2'  //dagger公用api
-    provided 'org.glassfish:javax.annotation:10.0-b28'  //添加android缺失的部分javax注解
+    apt rootProject.ext.dependencies['dagger-compiler']//指定注解处理器
+    compile rootProject.ext.dependencies['dagger']//dagger公用api
+    provided rootProject.ext.dependencies['javax-annotation']//添
+    // 加android缺失的部分javax注解
 
     //path
-    compile 'com.eftimoff:android-pathview:1.0.8@aar'
+    compile rootProject.ext.dependencies['pathview']
 
     //sweetalert
-    compile 'cn.pedant.sweetalert:library:1.3'
+    compile rootProject.ext.dependencies['sweetalert']
 
     //rxpermissions
-    compile 'com.tbruyelle.rxpermissions:rxpermissions:0.9.1@aar'
+    compile rootProject.ext.dependencies['rxpermissions']
 
     //glied
-    compile 'com.github.bumptech.glide:glide:3.7.0'
-    compile 'com.github.bumptech.glide:okhttp3-integration:1.4.0@aar'
-    compile 'jp.wasabeef:glide-transformations:2.0.1'
+    compile rootProject.ext.dependencies['glide']
+    compile rootProject.ext.dependencies['glide-okhttp3-integration']
+    compile rootProject.ext.dependencies['glide-transformations']
 
     //BaseRecyclerViewAdapterHelper
-    compile 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.28'
+    compile rootProject.ext.dependencies['BaseRecyclerViewAdapterHelper']
 
     // RxBinding
-    compile 'com.jakewharton.rxbinding:rxbinding:1.0.1'
-
+    compile rootProject.ext.dependencies['rxbinding']
     // Rxbus
-    compile ('com.hwangjr.rxbus:rxbus:1.0.3') {
+    compile (rootProject.ext.dependencies['rxbus']) {
         exclude group: 'com.hwangjr.utils', module: 'timber'
     }
 
-    // Toolbar折叠效果
-    compile 'com.zoonref:simple-view-behavior:1.0'
 
+    // Toolbar折叠效果
+    compile rootProject.ext.dependencies['simple-view-behavior']
     // ExpandableTextView
-    compile 'com.ms-square:expandableTextView:0.1.4'
+    compile rootProject.ext.dependencies['expandableTextView']
 }
