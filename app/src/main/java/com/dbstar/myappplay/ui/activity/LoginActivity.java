@@ -19,16 +19,18 @@ import com.dbstar.myappplay.di.module.LoginModule;
 import com.dbstar.myappplay.presenter.LoginPresenter;
 import com.dbstar.myappplay.presenter.contract.LoginContract;
 import com.dbstar.myappplay.ui.widget.LoadingButton;
-import com.jakewharton.rxbinding.view.RxView;
-import com.jakewharton.rxbinding.widget.RxTextView;
+import com.jakewharton.rxbinding2.view.RxView;
+import com.jakewharton.rxbinding2.widget.RxTextView;
 import com.mikepenz.iconics.IconicsDrawable;
 import com.mikepenz.ionicons_typeface_library.Ionicons;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import rx.Observable;
-import rx.functions.Action1;
-import rx.functions.Func2;
+import io.reactivex.Observable;
+import io.reactivex.annotations.NonNull;
+import io.reactivex.functions.BiFunction;
+import io.reactivex.functions.Consumer;
+
 
 /**
  * Created by wh on 2017/9/27.
@@ -98,22 +100,22 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
 
         Observable<CharSequence> txtMobiObservable = RxTextView.textChanges(txtMobi);
         Observable<CharSequence> txtPasswordObservable = RxTextView.textChanges(txtPassword);
-        Observable.combineLatest(txtMobiObservable, txtPasswordObservable, new Func2<CharSequence, CharSequence, Boolean>() {
+        Observable.combineLatest(txtMobiObservable, txtPasswordObservable, new BiFunction<CharSequence, CharSequence, Boolean>() {
             @Override
-            public Boolean call(CharSequence mobi, CharSequence passwd) {
+            public Boolean apply(@NonNull CharSequence mobi, @NonNull CharSequence passwd) throws Exception {
                 return isPhoneValid(mobi.toString()) && isPasswordValid(passwd.toString());
             }
-        }).subscribe(new Action1<Boolean>() {
+        }).subscribe(new Consumer<Boolean>() {
             @Override
-            public void call(Boolean aBoolean) {
+            public void accept(@NonNull Boolean aBoolean) throws Exception {
                 Log.e("LoginActivity","call(LoginActivity.java:89)"+ (aBoolean?"登录允许":""));
-                RxView.enabled(btnLogin).call(aBoolean);
+                RxView.enabled(btnLogin).accept(aBoolean);
             }
         });
 
-        RxView.clicks(btnLogin).subscribe(new Action1<Void>() {
+        RxView.clicks(btnLogin).subscribe(new Consumer<Object>() {
             @Override
-            public void call(Void aVoid) {
+            public void accept(@NonNull Object o) throws Exception {
                 LogUtils.e("dswang_LoginActivity", "LoginActivity.call. = ");
                 mPresenter.login(txtMobi.getText().toString().trim(),txtPassword.getText().toString().trim());
             }

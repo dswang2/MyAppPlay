@@ -28,11 +28,11 @@ import com.dbstar.myappplay.di.component.AppComponent;
 import com.dbstar.myappplay.ui.adapter.ViewPagerAdapter;
 import com.hwangjr.rxbus.RxBus;
 import com.hwangjr.rxbus.annotation.Subscribe;
-import com.tbruyelle.rxpermissions.Permission;
-import com.tbruyelle.rxpermissions.RxPermissions;
+import com.tbruyelle.rxpermissions2.Permission;
+import com.tbruyelle.rxpermissions2.RxPermissions;
 
 import butterknife.BindView;
-import rx.functions.Action1;
+import io.reactivex.functions.Consumer;
 
 public class MainActivity extends BaseActivity {
 
@@ -237,9 +237,9 @@ public class MainActivity extends BaseActivity {
 //                        Manifest.permission.CALL_PHONE,
 //                        Manifest.permission.SEND_SMS
                 )
-                .subscribe(new Action1<Permission>() {
+                .subscribe(new Consumer<Permission>() {
                     @Override
-                    public void call(Permission permission) {
+                    public void accept(Permission permission) throws Exception {
                         if (permission.granted) {
                             // 用户已经同意该权限
                             Log.e("CategoryFragment", "accept(CategoryFragment.java:52) " + permission.name + " is granted.");
