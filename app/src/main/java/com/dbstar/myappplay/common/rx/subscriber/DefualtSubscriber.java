@@ -1,10 +1,11 @@
 package com.dbstar.myappplay.common.rx.subscriber;
 
-import rx.Subscriber;
+
+import io.reactivex.Observer;
 
 /**
  * Created by wh on 2017/9/7.
  */
 
-public abstract class DefualtSubscriber<T> extends Subscriber<T> {
+public abstract class DefualtSubscriber<T> implements Observer<T> {
 }
