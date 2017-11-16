@@ -20,14 +20,13 @@ import com.bumptech.glide.Glide;
 import com.dbstar.myappplay.R;
 import com.dbstar.myappplay.bean.User;
 import com.dbstar.myappplay.common.imageloader.GlideCircleTransform;
+import com.dbstar.myappplay.common.rx.RxBus;
 import com.dbstar.myappplay.common.util.ACache;
 import com.dbstar.myappplay.common.util.Constant;
 import com.dbstar.myappplay.common.util.LogUtils;
 import com.dbstar.myappplay.common.util.ToastUtils;
 import com.dbstar.myappplay.di.component.AppComponent;
 import com.dbstar.myappplay.ui.adapter.ViewPagerAdapter;
-import com.hwangjr.rxbus.RxBus;
-import com.hwangjr.rxbus.annotation.Subscribe;
 import com.tbruyelle.rxpermissions2.Permission;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 
@@ -54,7 +53,7 @@ public class MainActivity extends BaseActivity {
     protected void init() {
 
         // 注册RxBus
-        RxBus.get().register(this);
+        getUserInfo();
 
         // 初始化侧滑菜单
         initDrawLayout();
@@ -71,11 +70,20 @@ public class MainActivity extends BaseActivity {
         initUser();
     }
 
-    @Subscribe
-    public void getUser(User user) {
-        Log.e("dswang", "MainActivity.getUser(MainActivity.java:60)" + user.toString());
-        initUserHeadView(user);
+    public void getUserInfo() {
+        RxBus.getDefault().toObservable(User.class).subscribe(new Consumer<User>() {
+            @Override
+            public void accept(@io.reactivex.annotations.NonNull User user) throws Exception {
+                initUserHeadView(user);
+            }
+        });
     }
+
+
+//    public void getUser(User user) {
+//        Log.e("dswang", "MainActivity.getUser(MainActivity.java:60)" + user.toString());
+//        initUserHeadView(user);
+//    }
 
     private void initUserHeadView(User user) {
         // 利用user更新头像
@@ -257,6 +265,7 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        RxBus.get().unregister(this);
     }
+
+
 }

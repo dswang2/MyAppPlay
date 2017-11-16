@@ -7,6 +7,8 @@ import android.widget.Toast;
 import com.dbstar.myappplay.common.exception.BaseException;
 import com.dbstar.myappplay.common.rx.RxErrorHandler;
 
+import io.reactivex.disposables.Disposable;
+
 /**
  * Created by wh on 2017/9/7.
  */
@@ -45,4 +47,13 @@ public abstract class ErrorHandlerSubscriber<T> extends DefualtSubscriber<T> {
 
     }
 
+    @Override
+    public void onSubscribe(Disposable d) {
+
+    }
+
+    @Override
+    public void onComplete() {
+
+    }
 }

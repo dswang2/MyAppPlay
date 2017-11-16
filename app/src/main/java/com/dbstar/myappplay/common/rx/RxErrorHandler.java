@@ -9,7 +9,8 @@ import com.google.gson.JsonParseException;
 
 import java.net.SocketTimeoutException;
 
-import retrofit2.adapter.rxjava.HttpException;
+import retrofit2.adapter.rxjava2.HttpException;
+
 
 /**
  * Created by wh on 2017/9/7.

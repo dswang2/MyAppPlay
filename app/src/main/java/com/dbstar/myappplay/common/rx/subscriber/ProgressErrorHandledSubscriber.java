@@ -6,6 +6,8 @@ import com.dbstar.myappplay.common.exception.BaseException;
 import com.dbstar.myappplay.common.util.ProgressDialogHandler;
 import com.dbstar.myappplay.ui.BaseView;
 
+import io.reactivex.disposables.Disposable;
+
 
 /**
  * Created by wh on 2017/9/7.
@@ -17,6 +19,7 @@ public abstract class ProgressErrorHandledSubscriber<T> extends ErrorHandlerSubs
     private ProgressDialogHandler mProgressDialogHandler;
     protected Context mContext;
     protected BaseView mBaseView;
+    private Disposable mDisposable;
 
 
     public ProgressErrorHandledSubscriber(Context context, BaseView mView) {
@@ -30,16 +33,16 @@ public abstract class ProgressErrorHandledSubscriber<T> extends ErrorHandlerSubs
         return true;
     }
 
-
     @Override
-    public void onStart() {
+    public void onSubscribe(Disposable d) {
+        mDisposable = d;
         if (isShowProgressDialog()) {
             mProgressDialogHandler.showProgressDialog();
         }
     }
 
     @Override
-    public void onCompleted() {
+    public void onComplete() {
         if (isShowProgressDialog()) {
             mProgressDialogHandler.dismissProgressDialog();
         }
@@ -51,12 +54,12 @@ public abstract class ProgressErrorHandledSubscriber<T> extends ErrorHandlerSubs
         if (isShowProgressDialog()) {
             mProgressDialogHandler.dismissProgressDialog();
         }
-        BaseException baseException =  mRxErrorHandler.handleError(e);
+        BaseException baseException = mRxErrorHandler.handleError(e);
         mBaseView.showError(baseException.getDisplayMessage());
     }
 
     @Override
     public void onCancelProgress() {
-        unsubscribe();
+        mDisposable.dispose();
     }
 }

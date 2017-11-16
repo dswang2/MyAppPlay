@@ -7,7 +7,8 @@ import com.dbstar.myappplay.bean.IndexBean;
 import com.dbstar.myappplay.bean.PageBean;
 import com.dbstar.myappplay.data.api.ApiService;
 
-import rx.Observable;
+import io.reactivex.Observable;
+
 
 /**
  * Created by dswang on 2017/8/20.

@@ -21,7 +21,7 @@ public class AppDetailPresenter extends BasePresenter<AppInfoModel,AppDetailCont
     public void requestAppDetails(int appID){
         mModel.getAppDetai(appID).compose(RxHttpReponseCompat.<AppDetail>compatResult()).subscribe(new ErrorHandlerSubscriber<AppDetail>(mContext) {
             @Override
-            public void onCompleted() {
+            public void onComplete() {
                 Log.e("dsw","AppDetailPresenter.onCompleted(AppDetailPresenter.java:25): "+"");
             }
 

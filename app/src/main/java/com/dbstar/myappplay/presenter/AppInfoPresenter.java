@@ -12,8 +12,8 @@ import com.dbstar.myappplay.common.util.Constant;
 import com.dbstar.myappplay.data.model.AppInfoModel;
 import com.dbstar.myappplay.presenter.contract.AppInfoContract;
 
-import rx.Observable;
-import rx.Subscriber;
+import io.reactivex.Observable;
+import io.reactivex.Observer;
 
 /**
  * Created by wh on 2017/9/26.
@@ -27,7 +27,7 @@ public class AppInfoPresenter extends BasePresenter<AppInfoModel, AppInfoContrac
 
 
     public void request(int type,int page,int categoryId,int flagType) {
-        Subscriber subscriber = null;
+        Observer subscriber = null;
         if (page == 0) {
             subscriber = new ProgressErrorHandledSubscriber<PageBean<AppInfo>>(mContext,mView) {
                 @Override
@@ -39,7 +39,7 @@ public class AppInfoPresenter extends BasePresenter<AppInfoModel, AppInfoContrac
         } else if (page > 0) {
             subscriber = new ErrorHandlerSubscriber<PageBean<AppInfo>>(mContext){
                 @Override
-                public void onCompleted() {
+                public void onComplete() {
                     // 加载更多完成时 的 动作 ，非常非常的重要
                     // appInfoAdapter.loadMoreComplete();
                     mView.onLoadMoreComplete();

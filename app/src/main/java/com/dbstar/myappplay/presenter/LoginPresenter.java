@@ -3,15 +3,16 @@ package com.dbstar.myappplay.presenter;
 import android.util.Log;
 
 import com.dbstar.myappplay.bean.LoginBean;
+import com.dbstar.myappplay.common.rx.RxBus;
 import com.dbstar.myappplay.common.rx.RxHttpReponseCompat;
 import com.dbstar.myappplay.common.util.ACache;
 import com.dbstar.myappplay.common.util.Constant;
 import com.dbstar.myappplay.common.util.LogUtils;
 import com.dbstar.myappplay.common.util.VerificationUtils;
 import com.dbstar.myappplay.presenter.contract.LoginContract;
-import com.hwangjr.rxbus.RxBus;
 
-import rx.Subscriber;
+import io.reactivex.Observer;
+import io.reactivex.disposables.Disposable;
 
 /**
  * Created by wh on 2017/9/27.
@@ -38,24 +39,11 @@ public class LoginPresenter extends BasePresenter<LoginContract.ILoginModel, Log
 
         mModel.login(email, password)
                 .compose(RxHttpReponseCompat.<LoginBean>compatResult())
-                .subscribe(new Subscriber<LoginBean>() {
-
+                .subscribe(new Observer<LoginBean>() {
                     @Override
-                    public void onStart() {
+                    public void onSubscribe(Disposable d) {
                         Log.e("dswang","LoginPresenter.onStart(LoginPresenter.java:43)");
                         mView.showLoading();
-                    }
-
-                    @Override
-                    public void onCompleted() {
-                        LogUtils.e("dswang", "LoginPresenter.onCompleted. = ");
-                        mView.dismissLoading();
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        LogUtils.e("dswang", "LoginPresenter.onError. = " + e.getStackTrace() + e.toString());
-                        mView.dismissLoading();
                     }
 
                     @Override
@@ -65,7 +53,19 @@ public class LoginPresenter extends BasePresenter<LoginContract.ILoginModel, Log
                         saveToken(loginBean);
                         saveUser(email,password);
                         // 利用RxBus 通知侧滑导航栏的头部更新登陆成功的头像
-                        RxBus.get().post(loginBean.getUser());
+                        RxBus.getDefault().post(loginBean.getUser());
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        LogUtils.e("dswang", "LoginPresenter.onError. = " + e.getStackTrace() + e.toString());
+                        mView.dismissLoading();
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        LogUtils.e("dswang", "LoginPresenter.onCompleted. = ");
+                        mView.dismissLoading();
                     }
                 });
     }

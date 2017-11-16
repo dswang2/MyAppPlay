@@ -7,7 +7,8 @@ import com.dbstar.myappplay.presenter.contract.CategoryContract;
 
 import java.util.List;
 
-import rx.Observable;
+import io.reactivex.Observable;
+
 
 /**
  * Created by wh on 2017/10/16.
