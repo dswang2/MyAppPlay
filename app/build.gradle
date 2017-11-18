@@ -84,13 +84,17 @@ dependencies {
     // RxBinding
     compile rootProject.ext.dependencies['rxbinding']
     // Rxbus
-//    compile (rootProject.ext.dependencies['rxbus']) {
-//        exclude group: 'com.hwangjr.utils', module: 'timber'
-//    }
+    //    compile (rootProject.ext.dependencies['rxbus']) {
+    //        exclude group: 'com.hwangjr.utils', module: 'timber'
+    //    }
 
 
     // Toolbar折叠效果
     compile rootProject.ext.dependencies['simple-view-behavior']
     // ExpandableTextView
     compile rootProject.ext.dependencies['expandableTextView']
+
+    // rxdownload 依赖
+    compile project(path:':rxdownload2')
+
 }
