@@ -13,6 +13,10 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.dbstar.myappplay.R;
 import com.dbstar.myappplay.bean.AppInfo;
 import com.dbstar.myappplay.common.imageloader.ImageLoader;
+import com.dbstar.myappplay.ui.widget.DownloadButtonController;
+import com.dbstar.myappplay.ui.widget.DownloadProgressButton;
+
+import zlc.season.rxdownload2.RxDownload;
 
 /**
  * Created by dswang on 2017/9/21.
@@ -22,6 +26,8 @@ public class AppInfoAdapter extends BaseQuickAdapter<AppInfo,BaseViewHolder>{
 
     String baseImgUrl ="http://file.market.xiaomi.com/mfc/thumbnail/png/w150q80/";
     private Builder builder;
+    private DownloadButtonController mDownloadButtonController;
+
 
     public static Builder builder(){
         return  new Builder();
@@ -30,6 +36,9 @@ public class AppInfoAdapter extends BaseQuickAdapter<AppInfo,BaseViewHolder>{
     private AppInfoAdapter(Builder builder) {
         super(R.layout.template_app);
         this.builder = builder;
+
+        mDownloadButtonController = new DownloadButtonController(builder.mRxDownload);
+
         openLoadAnimation();
     }
 
@@ -40,29 +49,40 @@ public class AppInfoAdapter extends BaseQuickAdapter<AppInfo,BaseViewHolder>{
     }
 
     @Override
-    protected void convert(BaseViewHolder helper, AppInfo item) {
-        ImageLoader.load(baseImgUrl+item.getIcon(), (ImageView) helper.getView(R.id.img_icons));
+    protected void convert(BaseViewHolder helper, AppInfo appInfo) {
+        ImageLoader.load(baseImgUrl+appInfo.getIcon(), (ImageView) helper.getView(R.id.img_icons));
 
-        helper.setText(R.id.text_titles,item.getDisplayName())
-                .setText(R.id.text_sizes,(item.getApkSize()/1024/1024)+"MB");
+        helper.setText(R.id.text_titles,appInfo.getDisplayName())
+                .setText(R.id.text_sizes,(appInfo.getApkSize()/1024/1024)+"MB");
 
         TextView textViewPosition = (TextView)helper.getView(R.id.txt_position);
         textViewPosition.setVisibility(builder.isShowPosition? View.VISIBLE:View.GONE);
-        textViewPosition.setText(item.getPosition()+1+".");
+        textViewPosition.setText(appInfo.getPosition()+1+".");
 
         TextView textViewGategory = helper.getView(R.id.txt_category);
         textViewGategory.setVisibility(builder.isShowCategoryName?View.VISIBLE:View.GONE);
-        textViewGategory.setText(item.getLevel1CategoryName());
+        textViewGategory.setText(appInfo.getLevel1CategoryName());
 
         TextView textViewBrief = helper.getView(R.id.txt_brief);
         textViewBrief.setVisibility(builder.isShowBrief?View.VISIBLE:View.GONE);
-        textViewBrief.setText(item.getBriefShow());
+        textViewBrief.setText(appInfo.getBriefShow());
+
+        helper.addOnClickListener(R.id.btn_dls);
+        View viewButton = helper.getView(R.id.btn_dls);
+        if(viewButton instanceof DownloadProgressButton){
+            DownloadProgressButton btn = (DownloadProgressButton) viewButton;
+            mDownloadButtonController.handClick(btn,appInfo);
+        }
+
+
     }
 
     public static class Builder{
         private boolean isShowPosition;
         private boolean isShowCategoryName;
         private boolean isShowBrief;
+
+        private RxDownload mRxDownload;
 
         public Builder showPosition(boolean b){
             this.isShowPosition = b;
@@ -79,6 +99,11 @@ public class AppInfoAdapter extends BaseQuickAdapter<AppInfo,BaseViewHolder>{
         public Builder showBrief(boolean b){
 
             this.isShowBrief =b;
+            return this;
+        }
+
+        public Builder rxDownload(RxDownload rxDownload){
+            this.mRxDownload = rxDownload;
             return this;
         }
 

@@ -67,15 +67,15 @@
     </LinearLayout>
 
 
-    <Button
+    <com.dbstar.myappplay.ui.widget.DownloadProgressButton
         android:id="@+id/btn_dls"
-        android:layout_width="60dp"
-        android:layout_height="40dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
-        android:background="#24AA42"
+        android:foreground="?android:attr/selectableItemBackground"
         android:text="下载"
-        android:textColor="@android:color/white" />
+         />
 
 
 </RelativeLayout>
