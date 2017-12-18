@@ -44,5 +44,7 @@ public class Constant {
     // 应用详情
     public static final String APPINFO = "appinfo";
 
+    public static final String APK_DOWNLOAD_DIR = "apk_dl_dir";
+
 
 }

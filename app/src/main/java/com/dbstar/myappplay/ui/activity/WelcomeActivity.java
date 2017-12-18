@@ -58,4 +58,6 @@ public class WelcomeActivity extends BaseActivity {
         this.finish();
     }
 
+
+
 }
